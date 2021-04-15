@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:fontFamily="@font/primary"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/regular"
+        android:textSize="32sp"
+        tools:ignore="HardcodedText" />
+
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/cpp"
+        android:layout_below="@id/text"
+        app:ccp_showFlag="false"
+        android:theme="@style/Widget.BottomNavigationView"
+        android:layout_marginTop="60dp"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"/>
+
+
+    <EditText
+        android:id="@+id/mobileNumber"
+        android:layout_below="@id/cpp"
+        android:layout_width="match_parent"
+        android:fontFamily="@font/primary"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:textColor="@color/regular"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:hint="Mobile Number"
+        android:maxLength="11"
+        android:padding="10dp"
+        android:inputType="phone"
+        tools:ignore="HardcodedText"
+        android:autofillHints="no" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Your Name"
+        android:fontFamily="@font/primary"
+        android:gravity="center"
+        android:layout_below="@id/mobileNumber"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btnContinue"
+        android:layout_below="@id/name"
+        android:layout_marginTop="20dp"
+        android:layout_width="300dp"
+        android:fontFamily="@font/primary"
+        android:layout_height="wrap_content"
+        android:text="Continue"
+        android:visibility="visible"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        tools:ignore="HardcodedText" />
+    <ProgressBar
+        android:id="@+id/loader"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mobileNumber"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="350dp"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:fontFamily="@font/primary"
+        android:textSize="10sp"
+        android:text="By Clicking on the CONTINUE button, you agree to our Terms of Use and Privacy Policy."
+        android:layout_below="@id/btnContinue"
+        tools:ignore="HardcodedText" />
+
+</RelativeLayout>

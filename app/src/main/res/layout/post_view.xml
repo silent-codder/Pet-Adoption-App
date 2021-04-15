@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:background="@drawable/bg"
+    app:cardElevation="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/regular"
+            android:layout_margin="5dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/profile_icon"/>
+
+        <ImageView
+            android:id="@+id/btnMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_menu"
+            android:layout_alignParentRight="true"/>
+
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/profile"
+            android:textColor="@color/regular"
+            android:hint="Loading.."
+            android:fontFamily="@font/primary"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/followText"
+            android:layout_below="@id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/profile"
+            android:textColor="@color/secondary"
+            android:text="Follow"
+            android:textSize="12sp"
+            android:fontFamily="@font/primary"
+            tools:ignore="HardcodedText" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"/>
+        <ImageView
+            android:layout_below="@id/profile"
+            android:id="@+id/postImg"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="#d7d7d7"
+            android:scaleType="fitXY"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="bottom">
+
+        <TextView
+            android:id="@+id/petName"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="loading.."
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/primary"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="loading.."
+            android:fontFamily="@font/primary"
+            android:layout_below="@id/petName"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/white"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="loading..."
+            android:fontFamily="@font/primary"
+            android:layout_marginStart="15dp"
+            android:layout_below="@id/age"
+            android:textColor="@color/white"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/unlike"
+            android:visibility="visible"
+            android:layout_marginTop="-5dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_unlike"
+            android:layout_below="@id/petName"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="35dp"/>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/like"
+            android:visibility="gone"
+            android:layout_marginTop="-10dp"
+            android:scaleType="fitCenter"
+            app:lottie_speed="2"
+            app:lottie_autoPlay="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:lottie_rawRes="@raw/like"
+            android:layout_below="@id/petName"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="26dp"/>
+        <TextView
+            android:id="@+id/likeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 Likes"
+            android:fontFamily="@font/primary"
+            android:layout_marginTop="12dp"
+            android:layout_below="@id/age"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"
+            android:layout_marginEnd="15dp"
+            tools:ignore="HardcodedText" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

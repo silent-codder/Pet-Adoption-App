@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="56dp"
+    tools:context=".Fragments.HomeFragment">
+
+    <TextView
+        android:id="@+id/helloText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello"
+        android:fontFamily="@font/primary"
+        android:textSize="14sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="13dp"
+        tools:ignore="HardcodedText" />
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="loading.."
+        android:fontFamily="@font/primary"
+        android:textColor="@color/secondary"
+        android:layout_marginStart="20dp"
+        android:layout_below="@id/helloText"
+        tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:id="@+id/chat"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/chat"
+        android:layout_alignParentRight="true"
+        android:layout_margin="8dp"
+        tools:ignore="RtlHardcoded" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userName"
+        android:id="@+id/refresh">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</RelativeLayout>

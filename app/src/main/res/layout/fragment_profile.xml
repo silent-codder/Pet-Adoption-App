@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.ProfileFragment">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        android:fontFamily="@font/primary"
+        android:textColor="@color/secondary"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        tools:ignore="HardcodedText" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:civ_border_width="2dp"
+        app:civ_border_color="@color/regular"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/text"
+        android:src="@drawable/profile_icon"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="loading.."
+        android:fontFamily="@font/primary"
+        android:textColor="@color/regular"
+        android:layout_below="@id/profile"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="16sp"
+        tools:ignore="HardcodedText" />
+    <TextView
+        android:id="@+id/mobileNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="loading.."
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/primary"
+        android:textColor="@color/regular"
+        android:layout_below="@+id/name"
+        tools:ignore="HardcodedText" />
+
+    <RelativeLayout
+        android:id="@+id/details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mobileNumber"
+        android:gravity="center"
+        android:layout_margin="20dp">
+
+        <TextView
+            android:id="@+id/followText"
+            android:layout_width="100dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Follow"
+            android:textColor="@color/regular"
+            android:fontFamily="@font/primary"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/follow"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/regular"
+            android:gravity="center"
+            android:fontFamily="@font/primary"
+            android:layout_below="@id/followText"
+            tools:ignore="HardcodedText" />
+
+        <View
+            android:layout_marginStart="20dp"
+            android:id="@+id/view2"
+            android:layout_width="2dp"
+            android:layout_height="50dp"
+            android:background="@color/regular"
+            android:layout_toRightOf="@id/follow"/>
+
+        <TextView
+            android:id="@+id/followerText"
+            android:layout_width="100dp"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:layout_toRightOf="@id/view2"
+            android:layout_height="wrap_content"
+            android:text="Followers"
+            android:textColor="@color/regular"
+            android:fontFamily="@font/primary"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/followers"
+            android:layout_width="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_toRightOf="@id/view2"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:textColor="@color/regular"
+            android:gravity="center"
+            android:fontFamily="@font/primary"
+            android:layout_below="@id/followerText"
+            tools:ignore="HardcodedText" />
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnEditProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit Profile"
+        android:fontFamily="@font/primary"
+        android:layout_below="@id/details"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        tools:ignore="HardcodedText" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/regular"
+        android:layout_below="@id/btnEditProfile"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Posts"
+        android:layout_below="@id/view"
+        android:fontFamily="@font/primary"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/secondary"
+        tools:ignore="HardcodedText" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text2"
+        android:layout_margin="15dp"
+        android:id="@+id/recycleView"/>
+</RelativeLayout>

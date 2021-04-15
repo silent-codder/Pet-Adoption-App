@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.EditProfileFragment">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Profile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/primary"
+        android:textColor="@color/secondary"
+        android:textSize="18sp"
+        tools:ignore="HardcodedText" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/profile_icon"
+        app:civ_border_width="1dp"
+        app:civ_border_color="@color/regular"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/text"/>
+    <ImageView
+        android:id="@+id/editImg"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_below="@id/profile"
+        android:layout_toEndOf="@id/profile"
+        android:layout_marginStart="-40dp"
+        android:layout_marginTop="-30dp"
+        android:src="@drawable/add_icon"/>
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Name"
+        android:fontFamily="@font/primary"
+        android:layout_below="@id/editImg"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        tools:ignore="HardcodedText" />
+    <EditText
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="User Name"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/primary"
+        android:layout_below="@id/text2"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btnUpdateProfile"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_below="@id/userName"
+        android:text="Update Profile"
+        android:fontFamily="@font/primary"
+        tools:ignore="HardcodedText" />
+
+    <ProgressBar
+        android:id="@+id/loader"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/userName"
+        android:layout_marginTop="20dp"/>
+
+</RelativeLayout>

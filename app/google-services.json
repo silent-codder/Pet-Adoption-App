@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "34330051512",
+    "project_id": "pet-adoption-520c6",
+    "storage_bucket": "pet-adoption-520c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34330051512:android:f806cce1fd26f70f69c54d",
+        "android_client_info": {
+          "package_name": "com.silentcodder.petadoption"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34330051512-h6hn04bckcd02lf9ji9tue3uk0pdj7s8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAioOhMvngmZQNgep54TCYNuACswQffJXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34330051512-h6hn04bckcd02lf9ji9tue3uk0pdj7s8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

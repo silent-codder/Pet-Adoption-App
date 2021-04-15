@@ -1,0 +1,127 @@
+package com.silentcodder.petadoption.Fragments;
+
+import android.os.Bundle;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.airbnb.lottie.LottieAnimationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.silentcodder.petadoption.Adapter.PostAdapter;
+import com.silentcodder.petadoption.Adapter.SearchAdapter;
+import com.silentcodder.petadoption.Model.PostData;
+import com.silentcodder.petadoption.Model.UserData;
+import com.silentcodder.petadoption.R;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+public class SearchFragment extends Fragment {
+
+    FirebaseAuth firebaseAuth;
+    FirebaseFirestore firebaseFirestore;
+    String UserId;
+    EditText mSearch;
+    TextView textView;
+
+    RecyclerView recyclerView;
+
+    List<UserData> postData;
+    SearchAdapter postAdapter;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        recyclerView = view.findViewById(R.id.recycleView);
+        mSearch = view.findViewById(R.id.btnSearch);
+        UserId = firebaseAuth.getCurrentUser().getUid();
+        textView = view.findViewById(R.id.notFoundTxt);
+
+        mSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.toString().trim().length()<1)
+                {
+                    clear();
+                }
+                else {
+                    LottieAnimationView lottieAnimationView = view.findViewById(R.id.lottie);
+                    lottieAnimationView.setVisibility(View.GONE);
+                    loadData(s.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+        return view;
+    }
+
+    private void loadData(String s) {
+        postData = new ArrayList<>();
+        postAdapter = new SearchAdapter(postData);
+
+//        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2, GridLayoutManager.HORIZONTAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView,new RecyclerView.State(), postAdapter.getItemCount());
+        recyclerView.setAdapter(postAdapter);
+
+
+        firebaseFirestore.collection("Users").orderBy("UserName").startAt(s).endAt(s+"\uf9ff" )
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                if (value.isEmpty()){
+                    textView.setVisibility(View.VISIBLE);
+                }
+
+                for (DocumentChange doc : value.getDocumentChanges()){
+                    if (doc.getType() == DocumentChange.Type.ADDED){
+                        UserData mPostData = doc.getDocument().toObject(UserData.class);
+                        postData.add(mPostData);
+                        postAdapter.notifyDataSetChanged();
+                        textView.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+    }
+
+    public void clear() {
+        int size = postData.size();
+        postData.clear();
+        postAdapter.notifyItemRangeRemoved(0,size);
+    }
+
+}

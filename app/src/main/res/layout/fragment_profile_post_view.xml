@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.ProfilePostViewFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/postImg"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="#D7D7D7"
+            android:scaleType="centerCrop"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/petInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/white"
+            android:layout_below="@id/postImg"
+            android:layout_marginTop="-40dp"
+            app:contentPadding="20dp"
+            android:layout_gravity="bottom"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/petName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rockey"
+                    android:textColor="@color/secondary"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/primary"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:id="@+id/age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2 Months , Boy"
+                    android:layout_below="@id/petName"
+                    android:fontFamily="@font/primary"
+                    android:textColor="@color/regular"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:id="@+id/about"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Love you rockey.."
+                    android:fontFamily="@font/primary"
+                    android:layout_below="@id/age"
+                    android:textColor="@color/regular"
+                    tools:ignore="HardcodedText" />
+
+                <ImageView
+                    android:id="@+id/unlike"
+                    android:visibility="visible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/heart"
+                    android:layout_alignParentRight="true"/>
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/like"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:visibility="gone"
+                    app:lottie_rawRes="@raw/like"
+                    app:lottie_autoPlay="true"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+            <EditText
+                android:id="@+id/comment"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:hint="comment                            "
+                android:layout_below="@id/petInfo"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/primary"
+                tools:ignore="HardcodedText" />
+
+            <ImageView
+                android:id="@+id/commentPost"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:src="@drawable/send"
+                android:layout_marginStart="10dp"
+                android:layout_below="@id/petInfo"
+                android:layout_toEndOf="@id/comment"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/commentPost"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/recycleView"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
