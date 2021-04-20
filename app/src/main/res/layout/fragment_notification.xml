@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="56dp"
     tools:context=".Fragments.NotificationFragment">
 
     <TextView
@@ -30,5 +31,25 @@
            android:id="@+id/recycleView"/>
 
    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    <ImageView
+        android:id="@+id/empty"
+        android:visibility="visible"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/empty"/>
+    <TextView
+        android:id="@+id/textEmpty"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/empty"
+        android:fontFamily="@font/primary"
+        android:layout_centerHorizontal="true"
+        android:text="No Notification available"
+        tools:ignore="HardcodedText" />
 
 </RelativeLayout>

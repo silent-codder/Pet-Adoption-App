@@ -61,7 +61,7 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String ImgUrl = postData.get(position).getPetImgUrl();
         String PostId = postData.get(position).PostId;
-        String UserId = firebaseAuth.getCurrentUser().getUid();
+        String UserId = postData.get(position).getUserId();
         String PetName = postData.get(position).getPetName();
         String Age = postData.get(position).getAge();
         String Sex = postData.get(position).getSex();
@@ -69,6 +69,10 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
         String PostUserId = postData.get(position).getUserId();
 
         Picasso.get().load(ImgUrl).into(holder.mPostImg);
+
+        if (UserId.equals(firebaseAuth.getCurrentUser().getUid())){
+            holder.mBtnDelete.setVisibility(View.VISIBLE);
+        }
 
         firebaseFirestore.collection("Posts").document(PostId).collection("Likes")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -113,6 +117,9 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                firebaseFirestore.collection("Posts").document(PostId).delete();
+                                postData.remove(position);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position,postData.size());
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {

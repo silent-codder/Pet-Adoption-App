@@ -33,6 +33,10 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.silentcodder.petadoption.Adapter.CommentAdapter;
 import com.silentcodder.petadoption.Model.PostData;
+import com.silentcodder.petadoption.Notification.APIService;
+import com.silentcodder.petadoption.Notification.Client;
+import com.silentcodder.petadoption.Notification.Data;
+import com.silentcodder.petadoption.Notification.NotificationSender;
 import com.silentcodder.petadoption.R;
 import com.squareup.picasso.Picasso;
 
@@ -41,6 +45,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.content.ContentValues.TAG;
 
@@ -59,11 +67,14 @@ public class ProfilePostViewFragment extends Fragment {
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
 
+    String fcmUrl = "https://fcm.googleapis.com/";
+
     List<PostData> postData;
     CommentAdapter postAdapter;
     String UserName;
     String ProfileUrl,PostUserId;
     String ChatId,PetName,PostId,Age,About,Sex,ImgUrl;
+    String CurrentUserName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,6 +99,16 @@ public class ProfilePostViewFragment extends Fragment {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
+
+        firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid())
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    CurrentUserName = task.getResult().getString("UserName");
+                }
+            }
+        });
 
         Bundle bundle = this.getArguments();
         if (bundle!=null){
@@ -119,6 +140,19 @@ public class ProfilePostViewFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
                             if (task.isSuccessful()){
+                                firebaseFirestore.collection("Tokens").document(PostUserId).get()
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()){
+                                                    String token = task.getResult().getString("token");
+                                                    String Title = CurrentUserName + " comment on your post";
+                                                    String Msg = "Comment : " + Comment ;
+                                                    sendNotification(token,Title,Msg);
+                                                }
+                                            }
+                                        });
+
                                 mComment.setText("");
                             }
                         }
@@ -211,6 +245,13 @@ public class ProfilePostViewFragment extends Fragment {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
+                if (!value.isEmpty()){
+                    ImageView imageView = view.findViewById(R.id.empty);
+                    TextView textView = view.findViewById(R.id.textEmpty);
+                    imageView.setVisibility(View.GONE);
+                    textView.setVisibility(View.GONE);
+                }
+
                 for (DocumentChange doc : value.getDocumentChanges()){
                     if (doc.getType() == DocumentChange.Type.ADDED){
                         String PostId = doc.getDocument().getId();
@@ -223,5 +264,24 @@ public class ProfilePostViewFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void sendNotification(String token, String title, String msg) {
+        Data data = new Data(title,msg);
+        NotificationSender notificationSender = new NotificationSender(data,token);
+
+        APIService apiService = Client.getRetrofit(fcmUrl).create(APIService.class);
+
+        apiService.sendNotification(notificationSender).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 }

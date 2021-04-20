@@ -72,7 +72,9 @@ public class SearchFragment extends Fragment {
                 }
                 else {
                     LottieAnimationView lottieAnimationView = view.findViewById(R.id.lottie);
+                    TextView textView = view.findViewById(R.id.text);
                     lottieAnimationView.setVisibility(View.GONE);
+                    textView.setVisibility(View.GONE);
                     loadData(s.toString());
                 }
             }

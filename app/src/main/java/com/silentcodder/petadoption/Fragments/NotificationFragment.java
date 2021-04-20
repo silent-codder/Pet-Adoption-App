@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -80,6 +81,13 @@ public class NotificationFragment extends Fragment {
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                        if (!value.isEmpty()){
+                            ImageView imageView = getView().findViewById(R.id.empty);
+                            TextView textView = getView().findViewById(R.id.textEmpty);
+                            imageView.setVisibility(View.GONE);
+                            textView.setVisibility(View.GONE);
+                        }
 
                         for (DocumentChange doc : value.getDocumentChanges()){
                             if (doc.getType() == DocumentChange.Type.ADDED){

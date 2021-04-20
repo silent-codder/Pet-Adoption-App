@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -61,6 +63,12 @@ public class ChatListFragment extends Fragment {
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (!value.isEmpty()){
+                            ImageView imageView = view.findViewById(R.id.empty);
+                            TextView textView = view.findViewById(R.id.textEmpty);
+                            imageView.setVisibility(View.GONE);
+                            textView.setVisibility(View.GONE);
+                        }
                         for (DocumentChange doc : value.getDocumentChanges()){
                             if (doc.getType() == DocumentChange.Type.ADDED){
                                 ChatData mPostData = doc.getDocument().toObject(ChatData.class);

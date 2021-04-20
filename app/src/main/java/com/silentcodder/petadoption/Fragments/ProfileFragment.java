@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -108,6 +109,13 @@ public class ProfileFragment extends Fragment {
         firebaseFirestore.collection("Posts").whereEqualTo("UserId",UserId).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                if (!value.isEmpty()){
+                    ImageView imageView = view.findViewById(R.id.empty);
+                    TextView textView = view.findViewById(R.id.textEmpty);
+                    imageView.setVisibility(View.GONE);
+                    textView.setVisibility(View.GONE);
+                }
 
                 for (DocumentChange doc : value.getDocumentChanges()){
                     if (doc.getType() == DocumentChange.Type.ADDED){

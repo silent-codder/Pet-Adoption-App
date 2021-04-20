@@ -39,6 +39,10 @@ import com.silentcodder.petadoption.Adapter.CommentAdapter;
 import com.silentcodder.petadoption.Adapter.PostAdapter;
 import com.silentcodder.petadoption.Model.PostData;
 import com.silentcodder.petadoption.Model.PostId;
+import com.silentcodder.petadoption.Notification.APIService;
+import com.silentcodder.petadoption.Notification.Client;
+import com.silentcodder.petadoption.Notification.Data;
+import com.silentcodder.petadoption.Notification.NotificationSender;
 import com.silentcodder.petadoption.R;
 import com.squareup.picasso.Picasso;
 
@@ -47,6 +51,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.content.ContentValues.TAG;
 
@@ -61,6 +69,8 @@ public class PostViewFragment extends Fragment {
     EditText mComment;
     ImageView mPostComment;
     RecyclerView recyclerView;
+
+    String fcmUrl = "https://fcm.googleapis.com/",CurrentUserName;
 
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
@@ -95,6 +105,16 @@ public class PostViewFragment extends Fragment {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
+
+        firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid())
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    CurrentUserName = task.getResult().getString("UserName");
+                }
+            }
+        });
 
         Bundle bundle = this.getArguments();
         if (bundle!=null){
@@ -135,6 +155,19 @@ public class PostViewFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
                             if (task.isSuccessful()){
+                                firebaseFirestore.collection("Tokens").document(PostUserId).get()
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()){
+                                                    String token = task.getResult().getString("token");
+                                                    String Title = CurrentUserName + " comment on your post";
+                                                    String Msg = "Comment : " + Comment ;
+                                                    sendNotification(token,Title,Msg);
+                                                }
+                                            }
+                                        });
+
                                 mComment.setText("");
                             }
                         }
@@ -200,6 +233,30 @@ public class PostViewFragment extends Fragment {
                             mUnlike.setVisibility(View.GONE);
                             mLike.setVisibility(View.VISIBLE);
                             mLike.playAnimation();
+
+                            firebaseFirestore.collection("Tokens").document(PostUserId).get()
+                                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if (task.isSuccessful()){
+                                                String Token = task.getResult().getString("token");
+                                                String title = CurrentUserName + " like your post";
+                                                String data = "See Notification";
+
+                                                HashMap<String, Object> notification = new HashMap<>();
+                                                notification.put("PostId",PostId);
+                                                notification.put("PostImgUrl",ImgUrl);
+                                                notification.put("UserId",firebaseAuth.getCurrentUser().getUid());
+                                                notification.put("PostUserId",PostUserId);
+                                                notification.put("TimeStamp",System.currentTimeMillis());
+
+                                                firebaseFirestore.collection("Notification").document(PostUserId)
+                                                        .collection("Notification").document(PostId).set(notification);
+
+                                                sendNotification(Token,title,data);
+                                            }
+                                        }
+                                    });
                         }
                     }
                 });
@@ -251,6 +308,13 @@ public class PostViewFragment extends Fragment {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
+                if (!value.isEmpty()){
+                    ImageView imageView = view.findViewById(R.id.empty);
+                    TextView textView = view.findViewById(R.id.textEmpty);
+                    imageView.setVisibility(View.GONE);
+                    textView.setVisibility(View.GONE);
+                }
+
                 for (DocumentChange doc : value.getDocumentChanges()){
                     if (doc.getType() == DocumentChange.Type.ADDED){
                         String PostId = doc.getDocument().getId();
@@ -270,12 +334,17 @@ public class PostViewFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         ChatId = task.getResult().getString("ChatId");
+                        Log.d(TAG, "ChatId 1st : " + ChatId);
+                        if (TextUtils.isEmpty(ChatId)){
+                            ChatId = firebaseFirestore.collection("Chats").document().getId();
+                        }
                     }
                 });
 
         mBtnAdoption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "ChatId 2st : " + ChatId);
                 Fragment fragment = new ChatFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("PostId",PostId);
@@ -289,4 +358,24 @@ public class PostViewFragment extends Fragment {
 
         return view;
     }
+
+    private void sendNotification(String token, String title, String msg) {
+        Data data = new Data(title,msg);
+        NotificationSender notificationSender = new NotificationSender(data,token);
+
+        APIService apiService = Client.getRetrofit(fcmUrl).create(APIService.class);
+
+        apiService.sendNotification(notificationSender).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

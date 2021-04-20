@@ -12,7 +12,7 @@
         tools:ignore="HardcodedText" />
     <item android:id="@+id/add"
         android:icon="@drawable/add_icon"
-        android:title="Add"
+        android:title="Post"
         tools:ignore="HardcodedText" />
     <item android:id="@+id/notification"
         android:icon="@drawable/notification_icon"

@@ -3,174 +3,187 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="52dp"
     tools:context=".Fragments.AddFragment">
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add your pet"
-        android:fontFamily="@font/primary"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/regular"
-        tools:ignore="HardcodedText" />
-    <ImageView
-        android:id="@+id/addImg"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="10dp"
-        android:src="@drawable/add_img"
-        android:layout_below="@id/text"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/petName"
-        android:inputType="textCapWords"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Pet Name"
-        android:textColor="@color/regular"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_below="@id/addImg"
-        android:fontFamily="@font/primary"
-        tools:ignore="HardcodedText" />
-    <EditText
-        android:id="@+id/age"
-        android:layout_marginTop="10dp"
-        android:inputType="textCapWords"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/regular"
-        android:hint="Age"
-        android:layout_below="@id/petName"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:fontFamily="@font/primary"
-        tools:ignore="HardcodedText" />
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/Gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gender"
-        android:layout_below="@id/age"
-        android:fontFamily="@font/primary"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        tools:ignore="HardcodedText" />
+           <TextView
+               android:id="@+id/text"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Add your pet"
+               android:fontFamily="@font/primary"
+               android:layout_centerHorizontal="true"
+               android:layout_marginTop="10dp"
+               android:textColor="@color/regular"
+               tools:ignore="HardcodedText" />
+           <ImageView
+               android:id="@+id/addImg"
+               android:layout_width="match_parent"
+               android:layout_height="200dp"
+               android:layout_margin="10dp"
+               android:src="@drawable/add_img"
+               android:layout_below="@id/text"
+               android:layout_centerHorizontal="true"
+               android:layout_marginTop="20dp"/>
 
-    <RadioGroup
-        android:id="@+id/radioGrp"
-        android:layout_below="@+id/Gender"
-        android:layout_marginStart="30dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+           <EditText
+               android:id="@+id/petName"
+               android:inputType="textCapWords"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:hint="Pet Name"
+               android:textColor="@color/regular"
+               android:layout_marginTop="10dp"
+               android:layout_marginStart="20dp"
+               android:layout_marginEnd="20dp"
+               android:layout_below="@id/addImg"
+               android:fontFamily="@font/primary"
+               tools:ignore="HardcodedText" />
+           <EditText
+               android:id="@+id/age"
+               android:layout_marginTop="10dp"
+               android:inputType="textCapWords"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textColor="@color/regular"
+               android:hint="Age"
+               android:layout_below="@id/petName"
+               android:layout_marginEnd="20dp"
+               android:layout_marginStart="20dp"
+               android:fontFamily="@font/primary"
+               tools:ignore="HardcodedText" />
 
-        <RadioButton
-            android:id="@+id/boy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Boy"
-            android:textColor="@color/regular"
-            android:fontFamily="@font/primary"
-            tools:ignore="HardcodedText" />
-        <RadioButton
-            android:id="@+id/girl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Girl"
-            android:layout_marginStart="20dp"
-            android:textColor="@color/regular"
-            android:fontFamily="@font/primary"
-            tools:ignore="HardcodedText" />
+           <TextView
+               android:id="@+id/Gender"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Gender"
+               android:layout_below="@id/age"
+               android:fontFamily="@font/primary"
+               android:layout_marginStart="25dp"
+               android:layout_marginTop="20dp"
+               tools:ignore="HardcodedText" />
 
-    </RadioGroup>
+           <RadioGroup
+               android:id="@+id/radioGrp"
+               android:layout_below="@+id/Gender"
+               android:layout_marginStart="30dp"
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/category"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Category"
-        android:textColor="@color/regular"
-        android:fontFamily="@font/primary"
-        android:layout_below="@id/radioGrp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="20dp"
-        tools:ignore="HardcodedText" />
+               <RadioButton
+                   android:id="@+id/boy"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Boy"
+                   android:textColor="@color/regular"
+                   android:fontFamily="@font/primary"
+                   tools:ignore="HardcodedText" />
+               <RadioButton
+                   android:id="@+id/girl"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Girl"
+                   android:layout_marginStart="20dp"
+                   android:textColor="@color/regular"
+                   android:fontFamily="@font/primary"
+                   tools:ignore="HardcodedText" />
 
-    <RadioGroup
-        android:id="@+id/radioGrp2"
-        android:layout_below="@id/category"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:orientation="horizontal">
+           </RadioGroup>
 
-        <RadioButton
-            android:id="@+id/dog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Dog"
-            android:fontFamily="@font/primary"
-            android:textColor="@color/regular"
-            tools:ignore="HardcodedText" />
-        <RadioButton
-            android:id="@+id/cat"
-            android:layout_marginStart="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cat"
-            android:fontFamily="@font/primary"
-            android:textColor="@color/regular"
-            tools:ignore="HardcodedText" />
-        <RadioButton
-            android:id="@+id/bird"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bird"
-            android:layout_marginStart="20dp"
-            android:fontFamily="@font/primary"
-            android:textColor="@color/regular"
-            tools:ignore="HardcodedText" />
+           <TextView
+               android:id="@+id/category"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:hint="Category"
+               android:textColor="@color/regular"
+               android:fontFamily="@font/primary"
+               android:layout_below="@id/radioGrp"
+               android:layout_marginStart="25dp"
+               android:layout_marginEnd="20dp"
+               tools:ignore="HardcodedText" />
 
-    </RadioGroup>
+           <RadioGroup
+               android:id="@+id/radioGrp2"
+               android:layout_below="@id/category"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="30dp"
+               android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/about"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Comment (Optional)"
-        android:fontFamily="@font/primary"
-        android:layout_below="@id/radioGrp2"
-        android:layout_marginTop="10dp"
-        android:inputType="textCapWords"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        tools:ignore="HardcodedText" />
+               <RadioButton
+                   android:id="@+id/dog"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Dog"
+                   android:fontFamily="@font/primary"
+                   android:textColor="@color/regular"
+                   tools:ignore="HardcodedText" />
+               <RadioButton
+                   android:id="@+id/cat"
+                   android:layout_marginStart="20dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Cat"
+                   android:fontFamily="@font/primary"
+                   android:textColor="@color/regular"
+                   tools:ignore="HardcodedText" />
+               <RadioButton
+                   android:id="@+id/bird"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Bird"
+                   android:layout_marginStart="20dp"
+                   android:fontFamily="@font/primary"
+                   android:textColor="@color/regular"
+                   tools:ignore="HardcodedText" />
 
-    <Button
-        android:id="@+id/btnUpload"
-        android:visibility="visible"
-        android:layout_below="@id/about"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Upload"
-        android:fontFamily="@font/primary"
-        android:layout_margin="20dp"
-        tools:ignore="HardcodedText" />
+           </RadioGroup>
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/loader"
-        android:visibility="gone"
-        android:layout_below="@id/about"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"/>
+           <EditText
+               android:id="@+id/about"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:hint="Comment (Optional)"
+               android:fontFamily="@font/primary"
+               android:layout_below="@id/radioGrp2"
+               android:layout_marginTop="10dp"
+               android:inputType="textCapWords"
+               android:layout_marginEnd="20dp"
+               android:layout_marginStart="20dp"
+               tools:ignore="HardcodedText" />
+
+           <Button
+               android:id="@+id/btnUpload"
+               android:visibility="visible"
+               android:layout_below="@id/about"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Upload"
+               android:fontFamily="@font/primary"
+               android:layout_margin="20dp"
+               tools:ignore="HardcodedText" />
+
+           <ProgressBar
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/loader"
+               android:visibility="gone"
+               android:layout_below="@id/about"
+               android:layout_marginTop="20dp"
+               android:layout_centerHorizontal="true"/>
+
+       </RelativeLayout>
+
+   </ScrollView>
 
 </RelativeLayout>

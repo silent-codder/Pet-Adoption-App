@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="52dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ProfileFragment">
 
@@ -74,7 +75,7 @@
             android:id="@+id/follow"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="10"
+            android:text="0"
             android:layout_marginTop="10dp"
             android:textColor="@color/regular"
             android:gravity="center"
@@ -108,7 +109,7 @@
             android:layout_marginStart="20dp"
             android:layout_toRightOf="@id/view2"
             android:layout_height="wrap_content"
-            android:text="5"
+            android:text="0"
             android:textColor="@color/regular"
             android:gravity="center"
             android:fontFamily="@font/primary"
@@ -154,4 +155,24 @@
         android:layout_below="@id/text2"
         android:layout_margin="15dp"
         android:id="@+id/recycleView"/>
+
+    <ImageView
+        android:id="@+id/empty"
+        android:visibility="visible"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/empty"
+        android:layout_below="@id/text2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
+    <TextView
+        android:id="@+id/textEmpty"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Yet nothing post"
+        android:fontFamily="@font/primary"
+        android:layout_below="@id/empty"
+        android:layout_centerHorizontal="true"
+        tools:ignore="HardcodedText" />
 </RelativeLayout>

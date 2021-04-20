@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,20 +28,38 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.silentcodder.petadoption.Model.ChatData;
+import com.silentcodder.petadoption.Notification.APIService;
+import com.silentcodder.petadoption.Notification.Client;
+import com.silentcodder.petadoption.Notification.Data;
+import com.silentcodder.petadoption.Notification.NotificationSender;
 import com.silentcodder.petadoption.R;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.w3c.dom.Document;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.ContentValues.TAG;
 
 public class AddFragment extends Fragment {
 
@@ -57,6 +76,9 @@ public class AddFragment extends Fragment {
     ProgressBar progressBar;
     Uri profileImgUri;
     StorageReference storageReference;
+
+    String fcmUrl = "https://fcm.googleapis.com/";
+    List<String > token;
 
 
     @Override
@@ -75,6 +97,8 @@ public class AddFragment extends Fragment {
         mBtnUpload = view.findViewById(R.id.btnUpload);
         mBoy = view.findViewById(R.id.boy);
         mGirl = view.findViewById(R.id.girl);
+
+        token = new ArrayList<String>();
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -155,12 +179,30 @@ public class AddFragment extends Fragment {
                     firebaseFirestore.collection("Posts")
                             .document(docId).set(map);
                     AddImg(docId);
+                    notification();
                 }
 
             }
         });
 
         return view;
+    }
+
+    private void notification() {
+        firebaseFirestore.collection("Tokens").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                for (DocumentChange doc : value.getDocumentChanges()){
+                    if (doc.getType() == DocumentChange.Type.ADDED){
+//                        token.add(doc.getDocument().getString("token"));
+                          String token = doc.getDocument().getString("token");
+                          String Title = "New Post on 'Pet Adoption'";
+                          String Msg = "Tap to see";
+                          sendNotification(token,Title,Msg);
+                    }
+                }
+            }
+        });
     }
 
     private void UploadImg() {
@@ -238,5 +280,24 @@ public class AddFragment extends Fragment {
             }
         });
 
+    }
+
+    private void sendNotification(String token, String title, String msg) {
+        Data data = new Data(title,msg);
+        NotificationSender notificationSender = new NotificationSender(data,token);
+
+        APIService apiService = Client.getRetrofit(fcmUrl).create(APIService.class);
+
+        apiService.sendNotification(notificationSender).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 }
