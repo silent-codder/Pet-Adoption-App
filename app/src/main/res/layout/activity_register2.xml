@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity2">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/primary"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/regular"
+        android:textSize="32sp"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addressLayout"
+        android:layout_marginTop="30dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_below="@id/text">
+
+        <EditText
+            android:id="@+id/addressLine"
+            android:layout_width="match_parent"
+            android:fontFamily="@font/primary"
+            android:layout_margin="10dp"
+            android:gravity="start"
+            android:textColor="@color/regular"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:hint="Address Line"
+            android:inputType="textCapWords"
+            tools:ignore="HardcodedText"
+            android:autofillHints="no" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cityLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_below="@id/addressLayout">
+
+        <EditText
+            android:id="@+id/city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:inputType="textCapWords"
+            android:hint="City"
+            android:fontFamily="@font/primary"
+            tools:ignore="HardcodedText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/stateLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_below="@id/cityLayout">
+
+        <EditText
+            android:id="@+id/state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:inputType="textCapWords"
+            android:hint="State"
+            android:fontFamily="@font/primary"
+            tools:ignore="HardcodedText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pinLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_below="@id/stateLayout">
+
+        <EditText
+            android:id="@+id/pinCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:inputType="numberDecimal"
+            android:maxLength="6"
+            android:hint="Pin code"
+            android:fontFamily="@font/primary"
+            tools:ignore="HardcodedText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnDone"
+        android:layout_below="@id/pinLayout"
+        android:layout_marginTop="20dp"
+        android:layout_width="300dp"
+        android:fontFamily="@font/primary"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:visibility="visible"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        tools:ignore="HardcodedText" />
+    <ProgressBar
+        android:id="@+id/loader"
+        android:visibility="invisible"
+        android:layout_below="@id/pinLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+
+</RelativeLayout>

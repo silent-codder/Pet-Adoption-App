@@ -73,7 +73,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_view,parent , false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pet_view,parent , false);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         context = parent.getContext();
@@ -94,80 +94,80 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         String UserId = firebaseAuth.getCurrentUser().getUid();
 
         holder.mPetName.setText(PetName);
-        holder.mAge.setText(Age + ", " +Sex);
-        holder.mAbout.setText(About);
+//        holder.mAge.setText(Age + ", " +Sex);
+//        holder.mAbout.setText(About);
 
         Picasso.get().load(ImgUrl).into(holder.PostImg);
 
-        firebaseFirestore.collection("Users").document(UserId).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        CurrentUserName = task.getResult().getString("UserName");
-                    }
-                });
+//        firebaseFirestore.collection("Users").document(UserId).get()
+//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        CurrentUserName = task.getResult().getString("UserName");
+//                    }
+//                });
 
-        firebaseFirestore.collection("Users").document(PostUserId)
-                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
-                    String UserName = task.getResult().getString("UserName");
-                    String ProfileUrl = task.getResult().getString("ProfileImgUrl");
-                    if (!TextUtils.isEmpty(ProfileUrl)){
-                        Picasso.get().load(ProfileUrl).into(holder.mProfileImg);
-                    }
-                    holder.mUserName.setText(UserName);
-                }
-            }
-        });
+//        firebaseFirestore.collection("Users").document(PostUserId)
+//                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()){
+//                    String UserName = task.getResult().getString("UserName");
+//                    String ProfileUrl = task.getResult().getString("ProfileImgUrl");
+//                    if (!TextUtils.isEmpty(ProfileUrl)){
+//                        Picasso.get().load(ProfileUrl).into(holder.mProfileImg);
+//                    }
+//                    holder.mUserName.setText(UserName);
+//                }
+//            }
+//        });
 
-        holder.mUnlike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HashMap<String, Object> map = new HashMap<>();
-                map.put("TimeStamp",System.currentTimeMillis());
-                map.put("UserId",UserId);
-                firebaseFirestore.collection("Posts").document(PostId).collection("Likes")
-                        .document(UserId).set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.like_sound);
-                            mediaPlayer.start();
-                            holder.mUnlike.setVisibility(View.GONE);
-                            holder.mLike.setVisibility(View.VISIBLE);
-                            holder.mLike.playAnimation();
-
-                            firebaseFirestore.collection("Tokens").document(PostUserId).get()
-                                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                            if (task.isSuccessful()){
-                                                String Token = task.getResult().getString("token");
-                                                String title = CurrentUserName + " like your post";
-                                                String data = "See Notification";
-
-                                                HashMap<String, Object> notification = new HashMap<>();
-                                                notification.put("PostId",PostId);
-                                                notification.put("PostImgUrl",ImgUrl);
-                                                notification.put("UserId",UserId);
-                                                notification.put("PostUserId",PostUserId);
-                                                notification.put("TimeStamp",System.currentTimeMillis());
-
-                                                firebaseFirestore.collection("Notification").document(PostUserId)
-                                                        .collection("Notification").document(PostId).set(notification);
-
-                                                sendNotification(Token,title,data);
-                                            }
-                                        }
-                                    });
-                        }
-                    }
-                });
-
-            }
-        });
+//        holder.mUnlike.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                HashMap<String, Object> map = new HashMap<>();
+//                map.put("TimeStamp",System.currentTimeMillis());
+//                map.put("UserId",UserId);
+//                firebaseFirestore.collection("Posts").document(PostId).collection("Likes")
+//                        .document(UserId).set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if (task.isSuccessful()){
+//                            MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.like_sound);
+//                            mediaPlayer.start();
+//                            holder.mUnlike.setVisibility(View.GONE);
+//                            holder.mLike.setVisibility(View.VISIBLE);
+//                            holder.mLike.playAnimation();
+//
+//                            firebaseFirestore.collection("Tokens").document(PostUserId).get()
+//                                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                                        @Override
+//                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                                            if (task.isSuccessful()){
+//                                                String Token = task.getResult().getString("token");
+//                                                String title = CurrentUserName + " like your post";
+//                                                String data = "See Notification";
+//
+//                                                HashMap<String, Object> notification = new HashMap<>();
+//                                                notification.put("PostId",PostId);
+//                                                notification.put("PostImgUrl",ImgUrl);
+//                                                notification.put("UserId",UserId);
+//                                                notification.put("PostUserId",PostUserId);
+//                                                notification.put("TimeStamp",System.currentTimeMillis());
+//
+//                                                firebaseFirestore.collection("Notification").document(PostUserId)
+//                                                        .collection("Notification").document(PostId).set(notification);
+//
+//                                                sendNotification(Token,title,data);
+//                                            }
+//                                        }
+//                                    });
+//                        }
+//                    }
+//                });
+//
+//            }
+//        });
 
         holder.PostImg.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -200,45 +200,45 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             });
         });
 
-        holder.mLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                firebaseFirestore.collection("Posts").document(PostId).collection("Likes").document(UserId)
-                        .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            holder.mUnlike.setVisibility(View.VISIBLE);
-                            holder.mLike.setVisibility(View.GONE);
-                            holder.mLike.playAnimation();
-                        }
-                    }
-                });
-            }
-        });
-
-        firebaseFirestore.collection("Posts").document(PostId).collection("Likes")
-                .document(UserId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (value.exists()){
-                    holder.mLike.setVisibility(View.VISIBLE);
-                    holder.mUnlike.setVisibility(View.GONE);
-                }else {
-                    holder.mLike.setVisibility(View.GONE);
-                    holder.mUnlike.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-        firebaseFirestore.collection("Posts").document(PostId).collection("Likes")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        String  count = String.valueOf(value.size());
-                        holder.mLikeCount.setText(count + " Likes");
-                    }
-                });
+//        holder.mLike.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                firebaseFirestore.collection("Posts").document(PostId).collection("Likes").document(UserId)
+//                        .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if (task.isSuccessful()){
+//                            holder.mUnlike.setVisibility(View.VISIBLE);
+//                            holder.mLike.setVisibility(View.GONE);
+//                            holder.mLike.playAnimation();
+//                        }
+//                    }
+//                });
+//            }
+//        });
+//
+//        firebaseFirestore.collection("Posts").document(PostId).collection("Likes")
+//                .document(UserId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+//                if (value.exists()){
+//                    holder.mLike.setVisibility(View.VISIBLE);
+//                    holder.mUnlike.setVisibility(View.GONE);
+//                }else {
+//                    holder.mLike.setVisibility(View.GONE);
+//                    holder.mUnlike.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        });
+//
+//        firebaseFirestore.collection("Posts").document(PostId).collection("Likes")
+//                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                        String  count = String.valueOf(value.size());
+//                        holder.mLikeCount.setText(count + " Likes");
+//                    }
+//                });
 
         holder.PostImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -272,17 +272,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             }
         });
 
-        holder.mUserName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                Fragment fragment = new ProfileViewFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("UserId",PostUserId);
-                fragment.setArguments(bundle);
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
-            }
-        });
+//        holder.mUserName.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+//                Fragment fragment = new ProfileViewFragment();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("UserId",PostUserId);
+//                fragment.setArguments(bundle);
+//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
+//            }
+//        });
 
     }
 
@@ -324,7 +324,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             mAbout = itemView.findViewById(R.id.about);
             mUnlike = itemView.findViewById(R.id.unlike);
             mLike = itemView.findViewById(R.id.like);
-            PostImg = itemView.findViewById(R.id.postImg);
+            PostImg = itemView.findViewById(R.id.image);
             mLikeCount = itemView.findViewById(R.id.likeCount);
             mBtnMenu = itemView.findViewById(R.id.btnMenu);
             mProfileImg = itemView.findViewById(R.id.profile);

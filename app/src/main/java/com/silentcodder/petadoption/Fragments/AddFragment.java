@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -63,7 +64,8 @@ import static android.content.ContentValues.TAG;
 
 public class AddFragment extends Fragment {
 
-    ImageView mBtnAddImg;
+    TextView mBtnAddImg;
+    ImageView mImage;
     EditText mPetName,mAge,mAbout;
     Button mBtnUpload;
     RadioButton mBoy,mGirl,mDog,mCat,mBird;
@@ -87,6 +89,7 @@ public class AddFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add, container, false);
 
         mBtnAddImg = view.findViewById(R.id.addImg);
+        mImage = view.findViewById(R.id.image);
         mPetName = view.findViewById(R.id.petName);
         progressBar = view.findViewById(R.id.loader);
         mAge = view.findViewById(R.id.age);
@@ -222,7 +225,9 @@ public class AddFragment extends Fragment {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 profileImgUri = result.getUri();
-                mBtnAddImg.setImageURI(profileImgUri);
+                mImage.setVisibility(View.VISIBLE);
+                mImage.setImageURI(profileImgUri);
+                mBtnAddImg.setVisibility(View.GONE);
                 progressDialog.dismiss();
 //                AddImg();
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {

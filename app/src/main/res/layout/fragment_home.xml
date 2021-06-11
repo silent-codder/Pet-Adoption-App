@@ -7,48 +7,271 @@
     android:layout_marginBottom="56dp"
     tools:context=".Fragments.HomeFragment">
 
-    <TextView
-        android:id="@+id/helloText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello"
-        android:fontFamily="@font/primary"
-        android:textSize="14sp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="13dp"
-        tools:ignore="HardcodedText" />
-    <TextView
-        android:id="@+id/userName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="loading.."
-        android:fontFamily="@font/primary"
-        android:textColor="@color/secondary"
-        android:layout_marginStart="20dp"
-        android:layout_below="@id/helloText"
-        tools:ignore="HardcodedText" />
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/chat"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/chat"
-        android:layout_alignParentRight="true"
-        android:layout_margin="8dp"
-        tools:ignore="RtlHardcoded" />
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/userName"
-        android:id="@+id/refresh">
+           <TextView
+               android:id="@+id/text"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Find Your"
+               android:textSize="20sp"
+               android:fontFamily="sans-serif-condensed-medium"
+               android:textStyle="bold"
+               android:textColor="@color/regular"
+               android:layout_marginTop="20dp"
+               android:layout_marginStart="20dp"
+               tools:ignore="HardcodedText" />
+           <TextView
+               android:id="@+id/text2"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:fontFamily="sans-serif-condensed-medium"
+               android:text="Lovely pet in anywhere"
+               android:layout_below="@id/text"
+               android:textSize="18sp"
+               android:layout_marginStart="20dp"
+               tools:ignore="HardcodedText" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"/>
+           <EditText
+               android:id="@+id/search"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:inputType="textCapWords"
+               android:background="@drawable/search_bg"
+               android:fontFamily="sans-serif-condensed-medium"
+               android:layout_below="@id/text2"
+               android:layout_marginTop="20dp"
+               android:layout_marginStart="20dp"
+               android:padding="15dp"
+               android:drawableStart="@drawable/ic_baseline_search_24"
+               android:hint="  Search"
+               tools:ignore="HardcodedText" />
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+           <TextView
+               android:id="@+id/textCategory"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Pet Category"
+               android:textStyle="bold"
+               android:fontFamily="sans-serif-condensed-medium"
+               android:layout_marginStart="20dp"
+               android:layout_below="@id/search"
+               android:layout_marginTop="20dp"
+               tools:ignore="HardcodedText" />
+
+           <TableLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_margin="20dp"
+               android:layout_below="@id/textCategory"
+               android:id="@+id/table_layout">
+
+               <TableRow
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+
+                   <RelativeLayout
+                       android:id="@+id/dog"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_weight="1"
+                       android:layout_marginEnd="10dp"
+                       android:background="@drawable/cat_bg"
+                       android:padding="10dp">
+
+                       <de.hdodenhof.circleimageview.CircleImageView
+                           android:layout_width="50dp"
+                           android:layout_height="50dp"
+                           android:src="@drawable/dog"
+                           android:id="@+id/dogImg"/>
+                       <TextView
+                           android:id="@+id/dogTxt"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Dogs"
+                           android:textStyle="bold"
+                           android:textSize="18sp"
+                           android:textColor="@color/secondary"
+                           android:layout_marginTop="7dp"
+                           android:layout_toEndOf="@id/dogImg"
+                           android:fontFamily="sans-serif-condensed-medium"
+                           android:layout_marginStart="20dp"
+                           tools:ignore="HardcodedText" />
+                       <TextView
+                           android:id="@+id/dogCount"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Total Of 10"
+                           android:textStyle="bold"
+                           android:fontFamily="sans-serif-condensed-medium"
+                           android:layout_below="@id/dogTxt"
+                           android:layout_toEndOf="@id/dogImg"
+                           android:layout_marginStart="20dp"
+                           tools:ignore="HardcodedText" />
+
+                   </RelativeLayout>
+                   <RelativeLayout
+                       android:id="@+id/cat"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_weight="1"
+                       android:layout_marginStart="10dp"
+                       android:background="@drawable/cat_bg"
+                       android:padding="10dp">
+
+                       <de.hdodenhof.circleimageview.CircleImageView
+                           android:layout_width="50dp"
+                           android:layout_height="50dp"
+                           android:src="@drawable/cat"
+                           android:id="@+id/catImg"/>
+                       <TextView
+                           android:id="@+id/catTxt"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Cats"
+                           android:textColor="@color/secondary"
+                           android:textStyle="bold"
+                           android:textSize="18sp"
+                           android:layout_marginTop="7dp"
+                           android:layout_toEndOf="@id/catImg"
+                           android:fontFamily="sans-serif-condensed-medium"
+                           android:layout_marginStart="20dp"
+                           tools:ignore="HardcodedText" />
+                       <TextView
+                           android:id="@+id/catCount"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Total Of 12"
+                           android:textStyle="bold"
+                           android:layout_below="@id/catTxt"
+                           android:fontFamily="sans-serif-condensed-medium"
+                           android:layout_toEndOf="@id/catImg"
+                           android:layout_marginStart="20dp"
+                           tools:ignore="HardcodedText" />
+
+                   </RelativeLayout>
+
+               </TableRow>
+
+               <TableRow
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="10dp">
+
+                   <RelativeLayout
+                       android:id="@+id/fish"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_weight="1"
+                       android:layout_marginEnd="10dp"
+                       android:background="@drawable/cat_bg"
+                       android:padding="10dp">
+
+                       <de.hdodenhof.circleimageview.CircleImageView
+                           android:layout_width="50dp"
+                           android:layout_height="50dp"
+                           android:src="@drawable/fish"
+                           android:id="@+id/fishImg"/>
+                       <TextView
+                           android:id="@+id/fishTxt"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Fishes"
+                           android:textStyle="bold"
+                           android:textSize="18sp"
+                           android:textColor="@color/secondary"
+                           android:layout_marginTop="7dp"
+                           android:layout_toEndOf="@id/fishImg"
+                           android:fontFamily="sans-serif-condensed-medium"
+                           android:layout_marginStart="20dp"
+                           tools:ignore="HardcodedText" />
+                       <TextView
+                           android:id="@+id/fishCount"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Total Of 30"
+
+                           android:textStyle="bold"
+                           android:layout_below="@id/fishTxt"
+                           android:fontFamily="sans-serif-condensed-medium"
+                           android:layout_toEndOf="@id/fishImg"
+                           android:layout_marginStart="20dp"
+                           tools:ignore="HardcodedText" />
+
+                   </RelativeLayout>
+                   <RelativeLayout
+                       android:id="@+id/bird"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_weight="1"
+                       android:layout_marginStart="10dp"
+                       android:background="@drawable/cat_bg"
+                       android:padding="10dp">
+
+                       <de.hdodenhof.circleimageview.CircleImageView
+                           android:layout_width="50dp"
+                           android:layout_height="50dp"
+                           android:src="@drawable/bird"
+                           android:id="@+id/birdImg"/>
+                       <TextView
+                           android:id="@+id/birdTxt"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Birds"
+                           android:textColor="@color/secondary"
+                           android:textStyle="bold"
+                           android:textSize="18sp"
+                           android:layout_marginTop="7dp"
+                           android:layout_toEndOf="@id/birdImg"
+                           android:fontFamily="sans-serif-condensed-medium"
+                           android:layout_marginStart="20dp"
+                           tools:ignore="HardcodedText" />
+                       <TextView
+                           android:id="@+id/birdCount"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Total Of 18"
+                           android:textStyle="bold"
+                           android:fontFamily="sans-serif-condensed-medium"
+                           android:layout_below="@id/birdTxt"
+                           android:layout_toEndOf="@id/birdImg"
+                           android:layout_marginStart="20dp"
+                           tools:ignore="HardcodedText" />
+
+                   </RelativeLayout>
+
+               </TableRow>
+
+           </TableLayout>
+
+           <TextView
+               android:id="@+id/textNew"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Newest Pet"
+               android:textStyle="bold"
+               android:layout_marginStart="20dp"
+               android:layout_below="@id/table_layout"
+               android:fontFamily="sans-serif-condensed-medium"
+               tools:ignore="HardcodedText" />
+
+           <androidx.recyclerview.widget.RecyclerView
+               android:id="@+id/recycleView"
+               android:layout_centerHorizontal="true"
+               android:layout_below="@id/textNew"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_marginStart="20dp"
+               android:layout_marginEnd="20dp"/>
+
+       </RelativeLayout>
+
+   </ScrollView>
 
 </RelativeLayout>

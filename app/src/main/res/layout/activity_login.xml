@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     tools:context=".LoginActivity">
 
     <TextView
@@ -12,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
+        android:layout_marginTop="100dp"
         android:fontFamily="@font/primary"
         android:layout_centerHorizontal="true"
         android:textColor="@color/regular"
@@ -29,37 +29,34 @@
         android:layout_height="wrap_content"/>
 
 
-    <EditText
-        android:id="@+id/mobileNumber"
-        android:layout_below="@id/cpp"
-        android:layout_width="match_parent"
-        android:fontFamily="@font/primary"
-        android:gravity="center"
-        android:layout_margin="10dp"
-        android:textColor="@color/regular"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:hint="Mobile Number"
-        android:maxLength="11"
-        android:padding="10dp"
-        android:inputType="phone"
-        tools:ignore="HardcodedText"
-        android:autofillHints="no" />
+   <com.google.android.material.textfield.TextInputLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/mobileNumberLayout"
+       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+       android:layout_below="@id/cpp">
 
-    <EditText
-        android:id="@+id/name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="Your Name"
-        android:fontFamily="@font/primary"
-        android:gravity="center"
-        android:layout_below="@id/mobileNumber"
-        tools:ignore="HardcodedText" />
+       <EditText
+           android:id="@+id/mobileNumber"
+           android:layout_width="match_parent"
+           android:fontFamily="@font/primary"
+           android:gravity="center"
+           android:layout_margin="10dp"
+           android:textColor="@color/regular"
+           android:layout_height="52dp"
+           android:layout_centerHorizontal="true"
+           android:hint="Mobile Number"
+           android:maxLength="11"
+           android:padding="10dp"
+           android:inputType="phone"
+           tools:ignore="HardcodedText"
+           android:autofillHints="no" />
+
+   </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnContinue"
-        android:layout_below="@id/name"
+        android:layout_below="@id/mobileNumberLayout"
         android:layout_marginTop="20dp"
         android:layout_width="300dp"
         android:fontFamily="@font/primary"
@@ -72,9 +69,9 @@
     <ProgressBar
         android:id="@+id/loader"
         android:visibility="invisible"
+        android:layout_below="@id/mobileNumberLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/mobileNumber"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
 
@@ -89,6 +86,19 @@
         android:textSize="10sp"
         android:text="By Clicking on the CONTINUE button, you agree to our Terms of Use and Privacy Policy."
         android:layout_below="@id/btnContinue"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/RegisterTxt"
+        android:layout_width="350dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/regular"
+        android:fontFamily="@font/primary"
+        android:text="New User ? Register"
+        android:layout_below="@id/text2"
         tools:ignore="HardcodedText" />
 
 </RelativeLayout>

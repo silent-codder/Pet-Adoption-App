@@ -15,7 +15,7 @@
         android:fontFamily="@font/primary"
         android:textColor="@color/secondary"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:textSize="20sp"
         tools:ignore="HardcodedText" />
 
@@ -24,9 +24,9 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:civ_border_width="2dp"
+        android:layout_marginStart="20dp"
         app:civ_border_color="@color/regular"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/text"
         android:src="@drawable/profile_icon"/>
 
@@ -35,11 +35,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="loading.."
+        android:layout_marginStart="10dp"
         android:fontFamily="@font/primary"
         android:textColor="@color/regular"
-        android:layout_below="@id/profile"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@id/text"
+        android:layout_toRightOf="@id/profile"
+        android:layout_marginTop="30dp"
         android:textSize="16sp"
         tools:ignore="HardcodedText" />
     <TextView
@@ -47,8 +48,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="loading.."
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@id/profile"
         android:fontFamily="@font/primary"
         android:textColor="@color/regular"
         android:layout_below="@+id/name"
@@ -56,9 +58,10 @@
 
     <RelativeLayout
         android:id="@+id/details"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/mobileNumber"
+        android:layout_below="@id/profile"
         android:gravity="center"
         android:layout_margin="20dp">
 

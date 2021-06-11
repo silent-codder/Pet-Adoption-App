@@ -16,7 +16,7 @@
             android:id="@+id/postImg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/lab"
+            android:background="#B7C3C0C0"
             android:scaleType="centerCrop"/>
 
         <TextView

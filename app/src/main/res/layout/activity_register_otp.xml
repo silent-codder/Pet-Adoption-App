@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context=".OtpActivity">
+    tools:context=".RegisterOtpActivity">
 
     <TextView
         android:id="@+id/text"
@@ -22,7 +22,9 @@
         android:id="@+id/text2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Otp send on your mobile number"
+        android:gravity="center"
         android:layout_below="@id/text"
         android:fontFamily="@font/primary"
         android:layout_centerHorizontal="true"

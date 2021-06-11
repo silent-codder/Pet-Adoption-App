@@ -3,6 +3,7 @@ package com.silentcodder.petadoption;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,21 +26,23 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
-public class OtpActivity extends AppCompatActivity {
+public class RegisterOtpActivity extends AppCompatActivity {
 
     Button mBtnVerifyOtp;
     EditText mGetOtp;
-    String MobileNumber,OtpId,Name;
+
+    String MobileNumber,OtpId,firstName,lastName;
     ProgressDialog progressDialog;
 
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
     ProgressBar progressBar;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_otp);
+        setContentView(R.layout.activity_register_otp);
 
         findIds();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -49,7 +53,11 @@ public class OtpActivity extends AppCompatActivity {
         progressDialog.show();
 
         MobileNumber = getIntent().getStringExtra("MobileNumber");
-        Name = getIntent().getStringExtra("Name");
+        firstName = getIntent().getStringExtra("FirstName");
+        lastName = getIntent().getStringExtra("LastName");
+
+        TextView textView = findViewById(R.id.text2);
+        textView.setText("Otp send on your mobile number "  + MobileNumber);
         InitiateOtp();
 
         mBtnVerifyOtp.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +104,7 @@ public class OtpActivity extends AppCompatActivity {
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
                         progressDialog.dismiss();
-                        Toast.makeText(OtpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterOtpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });        // OnVerificationStateChangedCallbacks
 
@@ -110,12 +118,22 @@ public class OtpActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            progressDialog.dismiss();
-                            progressBar.setVisibility(View.INVISIBLE);
-                            Intent intent = new Intent(OtpActivity.this, MainActivity.class);
-                            intent.putExtra("Mobile",MobileNumber);
-                            startActivity(intent);
-                            finish();
+                            HashMap<String, Object> map = new HashMap<>();
+                            map.put("MobileNumber",MobileNumber);
+                            map.put("UserId",firebaseAuth.getCurrentUser().getUid());
+                            map.put("UserName",firstName + " " + lastName);
+                            firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid())
+                                    .set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    progressDialog.dismiss();
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    Intent intent = new Intent(RegisterOtpActivity.this, RegisterActivity2.class);
+                                    intent.putExtra("Mobile",MobileNumber);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
                         } else {
                             progressDialog.dismiss();
                             progressBar.setVisibility(View.INVISIBLE);
@@ -126,4 +144,5 @@ public class OtpActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }

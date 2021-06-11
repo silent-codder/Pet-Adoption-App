@@ -100,7 +100,6 @@
             android:id="@+id/about"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="loading..."
             android:fontFamily="@font/primary"
             android:layout_marginStart="15dp"
             android:layout_below="@id/age"

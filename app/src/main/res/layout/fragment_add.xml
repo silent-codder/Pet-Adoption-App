@@ -24,49 +24,91 @@
                android:layout_marginTop="10dp"
                android:textColor="@color/regular"
                tools:ignore="HardcodedText" />
-           <ImageView
-               android:id="@+id/addImg"
-               android:layout_width="match_parent"
-               android:layout_height="200dp"
-               android:layout_margin="10dp"
-               android:src="@drawable/add_img"
-               android:layout_below="@id/text"
-               android:layout_centerHorizontal="true"
-               android:layout_marginTop="20dp"/>
 
-           <EditText
-               android:id="@+id/petName"
-               android:inputType="textCapWords"
+          <RelativeLayout
+              android:id="@+id/relativeLayout"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_below="@id/text"
+              android:layout_marginTop="20dp">
+
+              <TextView
+                  android:id="@+id/addImg"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Select your pet image"
+                  android:layout_marginTop="20dp"
+                  android:drawableTop="@drawable/ic_baseline_camera_alt_24"
+                  android:fontFamily="@font/primary"
+                  android:textColor="@color/regular"
+                  android:layout_centerHorizontal="true"
+                  tools:ignore="HardcodedText" />
+
+              <ImageView
+                  android:id="@+id/image"
+                  android:visibility="gone"
+                  android:layout_width="match_parent"
+                  android:layout_height="200dp"
+                  android:layout_margin="10dp"
+                  android:src="@drawable/add_img"
+                  android:layout_centerHorizontal="true"
+                  android:layout_marginTop="20dp"/>
+
+          </RelativeLayout>
+
+           <com.google.android.material.textfield.TextInputLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:hint="Pet Name"
-               android:textColor="@color/regular"
                android:layout_marginTop="10dp"
-               android:layout_marginStart="20dp"
-               android:layout_marginEnd="20dp"
-               android:layout_below="@id/addImg"
-               android:fontFamily="@font/primary"
-               tools:ignore="HardcodedText" />
-           <EditText
-               android:id="@+id/age"
-               android:layout_marginTop="10dp"
-               android:inputType="textCapWords"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textColor="@color/regular"
-               android:hint="Age"
-               android:layout_below="@id/petName"
                android:layout_marginEnd="20dp"
                android:layout_marginStart="20dp"
-               android:fontFamily="@font/primary"
-               tools:ignore="HardcodedText" />
+               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+               android:layout_below="@id/relativeLayout"
+               android:id="@+id/petNameTxt">
+
+               <EditText
+                   android:id="@+id/petName"
+                   android:inputType="textCapWords"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:hint="Pet Name"
+                   android:textColor="@color/regular"
+                   android:layout_below="@id/relativeLayout"
+                   android:fontFamily="@font/primary"
+                   tools:ignore="HardcodedText" />
+
+           </com.google.android.material.textfield.TextInputLayout>
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_below="@id/petNameTxt"
+              style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+              android:id="@+id/petAgeTxt"
+              android:layout_marginEnd="20dp"
+              android:layout_marginStart="20dp"
+              android:layout_marginTop="10dp">
+
+              <EditText
+                  android:id="@+id/age"
+                  android:layout_marginTop="10dp"
+                  android:inputType="textCapWords"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/regular"
+                  android:hint="Age"
+                  android:layout_below="@id/petNameTxt"
+                  android:fontFamily="@font/primary"
+                  tools:ignore="HardcodedText" />
+
+          </com.google.android.material.textfield.TextInputLayout>
 
            <TextView
                android:id="@+id/Gender"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="Gender"
-               android:layout_below="@id/age"
+               android:layout_below="@id/petAgeTxt"
                android:fontFamily="@font/primary"
                android:layout_marginStart="25dp"
                android:layout_marginTop="20dp"
@@ -104,8 +146,7 @@
                android:id="@+id/category"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:hint="Category"
-               android:textColor="@color/regular"
+               android:text="Category"
                android:fontFamily="@font/primary"
                android:layout_below="@id/radioGrp"
                android:layout_marginStart="25dp"
@@ -149,23 +190,32 @@
 
            </RadioGroup>
 
-           <EditText
-               android:id="@+id/about"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:hint="Comment (Optional)"
-               android:fontFamily="@font/primary"
-               android:layout_below="@id/radioGrp2"
-               android:layout_marginTop="10dp"
-               android:inputType="textCapWords"
-               android:layout_marginEnd="20dp"
-               android:layout_marginStart="20dp"
-               tools:ignore="HardcodedText" />
+          <com.google.android.material.textfield.TextInputLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/petAboutTxt"
+              android:layout_marginEnd="20dp"
+              android:layout_marginStart="20dp"
+              style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+              android:layout_below="@id/radioGrp2">
+
+              <EditText
+                  android:id="@+id/about"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:hint="Comment (Optional)"
+                  android:fontFamily="@font/primary"
+                  android:layout_below="@id/radioGrp2"
+                  android:layout_marginTop="10dp"
+                  android:inputType="textCapWords"
+                  tools:ignore="HardcodedText" />
+
+          </com.google.android.material.textfield.TextInputLayout>
 
            <Button
                android:id="@+id/btnUpload"
                android:visibility="visible"
-               android:layout_below="@id/about"
+               android:layout_below="@id/petAboutTxt"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:text="Upload"
@@ -178,7 +228,7 @@
                android:layout_height="wrap_content"
                android:id="@+id/loader"
                android:visibility="gone"
-               android:layout_below="@id/about"
+               android:layout_below="@id/petAboutTxt"
                android:layout_marginTop="20dp"
                android:layout_centerHorizontal="true"/>
 

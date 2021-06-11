@@ -2,8 +2,11 @@ package com.silentcodder.petadoption.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -77,7 +81,7 @@ public class PostViewFragment extends Fragment {
 
     List<PostData> postData;
     CommentAdapter postAdapter;
-    String UserName;
+    String UserName,MobileNumber;
     String ProfileUrl,PostUserId;
     String ChatId,PetName,PostId,Age,About,Sex,ImgUrl;
 
@@ -129,14 +133,6 @@ public class PostViewFragment extends Fragment {
             Log.d(TAG, "Bundle Img Url : " + PostId);
         }
 
-//        SharedPreferences sharedPreferences = getContext().getSharedPreferences("PostData",0 );
-//        String PetName = sharedPreferences.getString("PetName",null);
-//        String Age = sharedPreferences.getString("Age",null);
-//        String Sex = sharedPreferences.getString("Sex",null);
-//        String About = sharedPreferences.getString("About",null);
-//        String PostId = sharedPreferences.getString("PostId",null);
-//        String ImgUrl = sharedPreferences.getString("ImgUrl",null);
-//        PostUserId = sharedPreferences.getString("PostUserId", null);
 
         mPostComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,6 +186,7 @@ public class PostViewFragment extends Fragment {
                         if (task.isSuccessful()){
                             UserName = task.getResult().getString("UserName");
                             ProfileUrl = task.getResult().getString("ProfileImgUrl");
+                            MobileNumber = task.getResult().getString("MobileNumber");
 
                             mUserName.setText(UserName);
                             if (!TextUtils.isEmpty(ProfileUrl)){
@@ -344,15 +341,31 @@ public class PostViewFragment extends Fragment {
         mBtnAdoption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "ChatId 2st : " + ChatId);
-                Fragment fragment = new ChatFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("PostId",PostId);
-                bundle.putString("UserName",UserName);
-                bundle.putString("ProfileUrl",ProfileUrl);
-                bundle.putString("ChatId",ChatId);
-                fragment.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
+//                Log.d(TAG, "ChatId 2st : " + ChatId);
+//                Fragment fragment = new ChatFragment();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("PostId",PostId);
+//                bundle.putString("UserName",UserName);
+//                bundle.putString("ProfileUrl",ProfileUrl);
+//                bundle.putString("ChatId",ChatId);
+//                fragment.setArguments(bundle);
+//                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
+                boolean install = appInstallOrNot("com.whatsapp");
+
+                String msg = "I'm interested in your pet " + PetName;
+                String number = MobileNumber ;
+
+                if (number.equals("+919623921310")){
+                    number = "+919096618447";
+                }
+
+                if (install){
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(String.format("https://api.whatsapp.com/send?phone=%s&text=%s", number, msg)));
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(getContext(), "WhatsApp not install", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -377,5 +390,18 @@ public class PostViewFragment extends Fragment {
             }
         });
     }
+
+    private boolean appInstallOrNot(String s) {
+        PackageManager packageManager = getContext().getPackageManager();
+        boolean app_installed;
+        try {
+            packageManager.getPackageInfo(s,PackageManager.GET_ACTIVITIES);
+            app_installed = true;
+        }catch (PackageManager.NameNotFoundException e){
+            app_installed = false;
+        }
+        return app_installed;
+    }
+
 
 }

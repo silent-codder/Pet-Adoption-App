@@ -61,36 +61,9 @@ public class HomeFragment extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
         recyclerView = view.findViewById(R.id.recycleView);
         UserId = firebaseAuth.getCurrentUser().getUid();
-        swipeRefreshLayout = view.findViewById(R.id.refresh);
-        userName = view.findViewById(R.id.userName);
-        mChat = view.findViewById(R.id.chat);
 
-        firebaseFirestore.collection("Users").document(UserId)
-                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
-                    String UserName = task.getResult().getString("UserName");
-                    String ProfileUrl = task.getResult().getString("ProfileImgUrl");
-                    userName.setText(UserName);
-                }
-            }
-        });
 
-        mChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new ChatListFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
-            }
-        });
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadMorePost();
-            }
-        });
 
         loadMorePost();
 
@@ -98,11 +71,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadMorePost() {
-
-        swipeRefreshLayout.setRefreshing(false);
         postData = new ArrayList<>();
         postAdapter = new PostAdapter(postData);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView,new RecyclerView.State(), postAdapter.getItemCount());
         recyclerView.setAdapter(postAdapter);
 
@@ -117,7 +89,6 @@ public class HomeFragment extends Fragment {
                                 PostData mPostData = doc.getDocument().toObject(PostData.class).withId(PostId);
                                 postData.add(mPostData);
                                 postAdapter.notifyDataSetChanged();
-                                swipeRefreshLayout.setRefreshing(false);
                             }
                         }
                     }

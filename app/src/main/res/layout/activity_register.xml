@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/primary"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/regular"
+        android:textSize="32sp"
+        tools:ignore="HardcodedText" />
+
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/cpp"
+        android:layout_below="@id/text"
+        app:ccp_showFlag="false"
+        android:theme="@style/Widget.BottomNavigationView"
+        android:layout_marginTop="60dp"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mobileNumberLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_below="@id/cpp">
+
+        <EditText
+            android:id="@+id/mobileNumber"
+            android:layout_width="match_parent"
+            android:fontFamily="@font/primary"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:textColor="@color/regular"
+            android:layout_height="52dp"
+            android:layout_centerHorizontal="true"
+            android:hint="Mobile Number"
+            android:maxLength="11"
+            android:padding="10dp"
+            android:inputType="phone"
+            tools:ignore="HardcodedText"
+            android:autofillHints="no" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_below="@id/mobileNumberLayout">
+
+        <EditText
+            android:id="@+id/firstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:inputType="textPersonName|textCapWords"
+            android:hint="First Name"
+            android:fontFamily="@font/primary"
+            android:gravity="center"
+            tools:ignore="HardcodedText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lastLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_below="@id/nameLayout">
+
+        <EditText
+            android:id="@+id/lastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:inputType="textPersonName|textCapWords"
+            android:hint="Last Name"
+            android:fontFamily="@font/primary"
+            android:gravity="center"
+            tools:ignore="HardcodedText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnContinue"
+        android:layout_below="@id/lastLayout"
+        android:layout_marginTop="20dp"
+        android:layout_width="300dp"
+        android:fontFamily="@font/primary"
+        android:layout_height="wrap_content"
+        android:text="Continue"
+        android:visibility="visible"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        tools:ignore="HardcodedText" />
+    <ProgressBar
+        android:id="@+id/loader"
+        android:visibility="invisible"
+        android:layout_below="@id/lastLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/loginTxt"
+        android:layout_width="350dp"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:fontFamily="@font/primary"
+        android:textColor="@color/regular"
+        android:text="Already User ? Login"
+        android:layout_below="@id/btnContinue"
+        tools:ignore="HardcodedText" />
+
+</RelativeLayout>
