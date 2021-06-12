@@ -1,5 +1,6 @@
 package com.silentcodder.petadoption.Fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,9 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,12 +48,13 @@ public class HomeFragment extends Fragment {
     String UserId;
 
     RecyclerView recyclerView;
-    TextView userName;
-    ImageView mChat;
-    SwipeRefreshLayout swipeRefreshLayout;
 
     List<PostData>postData;
     PostAdapter postAdapter;
+
+    RelativeLayout mDog,mCat,mFish,mBird;
+    TextView mDogCount,mCatCount,mFishCount,mBirdCount;
+    EditText mSearch;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,12 +66,112 @@ public class HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycleView);
         UserId = firebaseAuth.getCurrentUser().getUid();
 
+        mDog = view.findViewById(R.id.dog);
+        mCat = view.findViewById(R.id.cat);
+        mFish = view.findViewById(R.id.fish);
+        mBird= view.findViewById(R.id.bird);
+        mDogCount = view.findViewById(R.id.dogCount);
+        mCatCount = view.findViewById(R.id.catCount);
+        mFishCount = view.findViewById(R.id.fishCount);
+        mBirdCount = view.findViewById(R.id.birdCount);
+        mSearch = view.findViewById(R.id.search);
 
-
+        mSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new SearchFragment();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
+            }
+        });
 
         loadMorePost();
 
+        CategoryPetCount();
+
+        mDog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new PetViewByCategoryFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("Category","Dog");
+                fragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
+            }
+        });
+
+        mCat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new PetViewByCategoryFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("Category","Cat");
+                fragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
+            }
+        });
+
+        mFish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new PetViewByCategoryFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("Category","Fish");
+                fragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
+            }
+        });
+
+        mBird.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new PetViewByCategoryFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("Category","Bird");
+                fragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
+            }
+        });
+
         return view;
+    }
+
+    private void CategoryPetCount() {
+        firebaseFirestore.collection("Posts").whereEqualTo("Category","Dog")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        int v = value.size();
+                        mDogCount.setText("Total Of " + String.valueOf(v));
+                    }
+                });
+        firebaseFirestore.collection("Posts").whereEqualTo("Category","Cat")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        int v = value.size();
+                        mCatCount.setText("Total Of " + String.valueOf(v));
+                    }
+                });
+        firebaseFirestore.collection("Posts").whereEqualTo("Category","Fish")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        int v = value.size();
+                        mFishCount.setText("Total Of " + String.valueOf(v));
+                    }
+                });
+        firebaseFirestore.collection("Posts").whereEqualTo("Category","Bird")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        int v = value.size();
+                        mBirdCount.setText("Total Of " + String.valueOf(v));
+                    }
+                });
     }
 
     private void loadMorePost() {

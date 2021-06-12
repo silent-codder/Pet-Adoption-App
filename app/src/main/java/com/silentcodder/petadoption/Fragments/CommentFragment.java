@@ -1,11 +1,9 @@
 package com.silentcodder.petadoption.Fragments;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,12 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,13 +34,11 @@ import com.silentcodder.petadoption.Notification.Client;
 import com.silentcodder.petadoption.Notification.Data;
 import com.silentcodder.petadoption.Notification.NotificationSender;
 import com.silentcodder.petadoption.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,46 +46,31 @@ import retrofit2.Response;
 
 import static android.content.ContentValues.TAG;
 
-public class ProfilePostViewFragment extends Fragment {
+public class CommentFragment extends Fragment {
 
-    ImageView mPostImage,mUnlike,mBack,mShare;
-    CardView mBtnAdoption;
-    LottieAnimationView mLike;
-    TextView mPetName,mAge,mAbout,mUserName;
-    CircleImageView mProfileImg;
-    Button mBtnFollow;
     EditText mComment;
     ImageView mPostComment;
     RecyclerView recyclerView;
 
+    String fcmUrl = "https://fcm.googleapis.com/",CurrentUserName,PostId,PostUserId;
+
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
 
-    String fcmUrl = "https://fcm.googleapis.com/";
-
     List<PostData> postData;
     CommentAdapter postAdapter;
-    String UserName;
-    String ProfileUrl,PostUserId;
-    String ChatId,PetName,PostId,Age,About,Sex,ImgUrl;
-    String CurrentUserName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile_post_view, container, false);
+        View view = inflater.inflate(R.layout.fragment_comment, container, false);
 
-        mPostImage = view.findViewById(R.id.postImg);
-        mUnlike = view.findViewById(R.id.unlike);
-        mBack = view.findViewById(R.id.back);
-        mShare = view.findViewById(R.id.share);
-        mBtnAdoption = view.findViewById(R.id.btnAdoption);
-        mLike = view.findViewById(R.id.like);
-        mPetName = view.findViewById(R.id.petName);
-        mAge = view.findViewById(R.id.age);
-        mAbout = view.findViewById(R.id.about);
-        mUserName = view.findViewById(R.id.userName);
-        mProfileImg = view.findViewById(R.id.profile);
+        Bundle bundle = this.getArguments();
+        if (bundle!=null){
+            PostId = bundle.getString("PostId");
+            PostUserId = bundle.getString("PostUserId");
+        }
+
         mComment = view.findViewById(R.id.comment);
         mPostComment = view.findViewById(R.id.commentPost);
         recyclerView = view.findViewById(R.id.recycleView);
@@ -108,19 +87,6 @@ public class ProfilePostViewFragment extends Fragment {
                 }
             }
         });
-
-        Bundle bundle = this.getArguments();
-        if (bundle!=null){
-            PetName = bundle.getString("PetName");
-            Age = bundle.getString("Age");
-            Sex = bundle.getString("Sex");
-            About = bundle.getString("About");
-            PostId = bundle.getString("PostId");
-            ImgUrl = bundle.getString("ImgUrl");
-            PostUserId = bundle.getString("PostUserId");
-
-            Log.d(TAG, "Bundle Img Url : " + PostId);
-        }
 
         mPostComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,76 +126,6 @@ public class ProfilePostViewFragment extends Fragment {
             }
         });
 
-        mPetName.setText(PetName);
-        mAge.setText(Age + " ," + Sex);
-        mAbout.setText(About);
-
-        firebaseFirestore.collection("Posts").document(PostId).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()){
-                            String ImgUrl = task.getResult().getString("PetImgUrl");
-                            if (!TextUtils.isEmpty(ImgUrl)){
-                                Picasso.get().load(ImgUrl).into(mPostImage);
-                            }
-                        }
-                    }
-                });
-
-        mUnlike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HashMap<String, Object> map = new HashMap<>();
-                map.put("TimeStamp",System.currentTimeMillis());
-                map.put("UserId",FirebaseAuth.getInstance().getCurrentUser());
-                firebaseFirestore.collection("Posts").document(PostId).collection("Likes")
-                        .document(firebaseAuth.getCurrentUser().getUid()).set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.like_sound);
-                            mediaPlayer.start();
-                            mUnlike.setVisibility(View.GONE);
-                            mLike.setVisibility(View.VISIBLE);
-                            mLike.playAnimation();
-                        }
-                    }
-                });
-
-            }
-        });
-
-        mLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                firebaseFirestore.collection("Posts").document(PostId).collection("Likes").document(firebaseAuth.getCurrentUser().getUid())
-                        .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            mUnlike.setVisibility(View.VISIBLE);
-                            mLike.setVisibility(View.GONE);
-                            mLike.playAnimation();
-                        }
-                    }
-                });
-            }
-        });
-
-        firebaseFirestore.collection("Posts").document(PostId).collection("Likes")
-                .document(firebaseAuth.getCurrentUser().getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (value.exists()){
-                    mLike.setVisibility(View.VISIBLE);
-                    mUnlike.setVisibility(View.GONE);
-                }else {
-                    mLike.setVisibility(View.GONE);
-                    mUnlike.setVisibility(View.VISIBLE);
-                }
-            }
-        });
 
         postData = new ArrayList<>();
         postAdapter = new CommentAdapter(postData);
@@ -261,6 +157,7 @@ public class ProfilePostViewFragment extends Fragment {
                 }
             }
         });
+
 
         return view;
     }

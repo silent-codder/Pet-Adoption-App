@@ -39,9 +39,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/empty"
-        android:fontFamily="@font/primary"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_centerHorizontal="true"
-        android:text="No Chats available"
+        android:gravity="center"
+        android:text="Chat option Unavailable\nComing soon..."
         tools:ignore="HardcodedText" />
 
 </RelativeLayout>

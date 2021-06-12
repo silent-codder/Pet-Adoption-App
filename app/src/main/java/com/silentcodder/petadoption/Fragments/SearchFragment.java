@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,7 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.silentcodder.petadoption.Adapter.PostAdapter;
 import com.silentcodder.petadoption.Adapter.SearchAdapter;
@@ -43,8 +45,9 @@ public class SearchFragment extends Fragment {
 
     RecyclerView recyclerView;
 
-    List<UserData> postData;
-    SearchAdapter postAdapter;
+
+    List<PostData>postData;
+    PostAdapter postAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,6 +60,8 @@ public class SearchFragment extends Fragment {
         mSearch = view.findViewById(R.id.btnSearch);
         UserId = firebaseAuth.getCurrentUser().getUid();
         textView = view.findViewById(R.id.notFoundTxt);
+
+        allData();
 
         mSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -89,35 +94,54 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
-    private void loadData(String s) {
+    private void allData(){
         postData = new ArrayList<>();
-        postAdapter = new SearchAdapter(postData);
-
-//        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2, GridLayoutManager.HORIZONTAL,false));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        postAdapter = new PostAdapter(postData);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView,new RecyclerView.State(), postAdapter.getItemCount());
         recyclerView.setAdapter(postAdapter);
 
-
-        firebaseFirestore.collection("Users").orderBy("UserName").startAt(s).endAt(s+"\uf9ff" )
+        firebaseFirestore.collection("Posts")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                if (value.isEmpty()){
-                    textView.setVisibility(View.VISIBLE);
-                }
-
-                for (DocumentChange doc : value.getDocumentChanges()){
-                    if (doc.getType() == DocumentChange.Type.ADDED){
-                        UserData mPostData = doc.getDocument().toObject(UserData.class);
-                        postData.add(mPostData);
-                        postAdapter.notifyDataSetChanged();
-                        textView.setVisibility(View.GONE);
+                        for (DocumentChange doc : value.getDocumentChanges()){
+                            if (doc.getType() == DocumentChange.Type.ADDED){
+                                String PostId = doc.getDocument().getId();
+                                PostData mPostData = doc.getDocument().toObject(PostData.class).withId(PostId);
+                                postData.add(mPostData);
+                                postAdapter.notifyDataSetChanged();
+                            }
+                        }
                     }
-                }
-            }
-        });
+                });
+    }
+
+    private void loadData(String s) {
+        postData = new ArrayList<>();
+        postAdapter = new PostAdapter(postData);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView,new RecyclerView.State(), postAdapter.getItemCount());
+        recyclerView.setAdapter(postAdapter);
+
+        firebaseFirestore.collection("Posts").orderBy("PetName").startAt(s).endAt(s+"\uf9ff" )
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                        for (DocumentChange doc : value.getDocumentChanges()){
+                            if (doc.getType() == DocumentChange.Type.ADDED){
+                                String PostId = doc.getDocument().getId();
+                                PostData mPostData = doc.getDocument().toObject(PostData.class).withId(PostId);
+                                postData.add(mPostData);
+                                postAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+                });
     }
 
     public void clear() {
@@ -125,5 +149,7 @@ public class SearchFragment extends Fragment {
         postData.clear();
         postAdapter.notifyItemRangeRemoved(0,size);
     }
+
+
 
 }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="56dp"
+    tools:context=".Fragments.CommentFragment">
+
+    <TextView
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Comments"
+        android:gravity="center"
+        android:background="@color/primary"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:drawableStart="@drawable/ic_arrow_back"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif-condensed-medium"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:id="@+id/comment"
+        android:layout_width="match_parent"
+        android:layout_toLeftOf="@id/commentPost"
+        android:layout_height="50dp"
+        android:hint="type here"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:id="@+id/commentPost"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:src="@drawable/send"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnBack"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/recycleView"/>
+
+    <ImageView
+        android:id="@+id/empty"
+        android:visibility="visible"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/empty"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
+    <TextView
+        android:id="@+id/textEmpty"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Yet comment not available"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textStyle="bold"
+        android:layout_below="@id/empty"
+        android:layout_centerHorizontal="true"
+        tools:ignore="HardcodedText" />
+
+</RelativeLayout>

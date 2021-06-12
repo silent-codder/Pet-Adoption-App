@@ -67,151 +67,236 @@
                         android:fontFamily="@font/primary"
                         tools:ignore="HardcodedText" />
                     <TextView
-                        android:id="@+id/age"
+                        android:id="@+id/city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2 Months , Boy"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        android:text="  Maharashtra"
+                        android:drawableStart="@drawable/location"
                         android:layout_below="@id/petName"
-                        android:fontFamily="@font/primary"
-                        android:textColor="@color/regular"
+                        android:fontFamily="sans-serif-condensed-medium"
                         tools:ignore="HardcodedText" />
+
                     <TextView
-                        android:id="@+id/about"
+                        android:id="@+id/status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Love you rockey.."
-                        android:fontFamily="@font/primary"
-                        android:layout_below="@id/age"
-                        android:textColor="@color/regular"
+                        android:text="Not Available"
+                        android:textStyle="bold"
+                        android:background="@drawable/status_bg"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textColor="@color/white"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:layout_below="@id/city"
+                        android:layout_marginTop="10dp"
                         tools:ignore="HardcodedText" />
 
                     <ImageView
                         android:id="@+id/unlike"
                         android:visibility="visible"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_unlike"
+                        android:layout_alignParentRight="true"/>
+
+                    <ImageView
+                        android:id="@+id/like"
+                        android:visibility="invisible"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_fav"
+                        android:layout_alignParentRight="true"/>
+
+                    <ImageView
+                        android:id="@+id/comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/heart"
-                        android:layout_alignParentRight="true"/>
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/like"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:visibility="gone"
-                        app:lottie_rawRes="@raw/like"
-                        app:lottie_autoPlay="true"
-                        android:layout_alignParentRight="true"/>
+                        android:src="@drawable/comment"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="50dp"/>
+
 
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/profile_icon"
-                app:civ_border_width="1dp"
-                app:civ_border_color="@color/regular"
+            <TableLayout
+                android:id="@+id/table_layout"
                 android:layout_below="@id/petInfo"
-                android:layout_marginStart="20dp"/>
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/cat_bg"
+                        android:padding="10dp">
+                        <TextView
+                            android:id="@+id/color"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Gary"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/secondary"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:layout_marginTop="7dp"
+                            android:fontFamily="sans-serif-condensed-medium"
+                            android:layout_marginStart="20dp"
+                            tools:ignore="HardcodedText" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Color"
+                            android:layout_centerHorizontal="true"
+                            android:textStyle="bold"
+                            android:layout_below="@id/color"
+                            android:fontFamily="sans-serif-condensed-medium"
+                            android:layout_marginStart="20dp"
+                            tools:ignore="HardcodedText" />
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/dog"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/cat_bg"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/age"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4 Months"
+                            android:layout_centerHorizontal="true"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:textColor="@color/secondary"
+                            android:layout_marginTop="7dp"
+                            android:fontFamily="sans-serif-condensed-medium"
+                            android:layout_marginStart="20dp"
+                            tools:ignore="HardcodedText" />
+                        <TextView
+                            android:id="@+id/dogCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="Age"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-condensed-medium"
+                            android:layout_below="@id/age"
+                            android:layout_marginStart="20dp"
+                            tools:ignore="HardcodedText" />
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/cat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/cat_bg"
+                        android:padding="10dp">
+                        <TextView
+                            android:id="@+id/sex"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Boy"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/secondary"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:layout_marginTop="7dp"
+                            android:fontFamily="sans-serif-condensed-medium"
+                            android:layout_marginStart="20dp"
+                            tools:ignore="HardcodedText" />
+                        <TextView
+                            android:id="@+id/catCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sex"
+                            android:layout_centerHorizontal="true"
+                            android:textStyle="bold"
+                            android:layout_below="@id/sex"
+                            android:fontFamily="sans-serif-condensed-medium"
+                            android:layout_marginStart="20dp"
+                            tools:ignore="HardcodedText" />
+
+                    </RelativeLayout>
+
+                </TableRow>
+
+            </TableLayout>
 
             <TextView
-                android:id="@+id/userName"
+                android:id="@+id/petAboutTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
-                android:fontFamily="@font/primary"
-                android:textColor="@color/regular"
-                android:layout_below="@id/petInfo"
-                android:layout_toRightOf="@id/profile"
+                android:text="About Pet"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_below="@id/table_layout"
+                android:layout_marginStart="20dp"
                 tools:ignore="HardcodedText" />
-            <Button
-                android:id="@+id/btnFollow"
-                android:layout_below="@id/userName"
-                android:layout_toRightOf="@id/profile"
-                android:layout_marginStart="10dp"
-                android:textSize="9sp"
+            <TextView
+                android:id="@+id/about"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="Follow"
-                android:fontFamily="@font/primary"
-                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:text="About pet information."
+                android:layout_below="@id/petAboutTxt"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/regular"
+                android:fontFamily="sans-serif-condensed-medium"
                 tools:ignore="HardcodedText" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/btnAdoption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/profile"
                 android:layout_marginStart="20dp"
+                android:layout_below="@id/about"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
                 app:contentPadding="10dp"
-                app:cardBackgroundColor="@color/primary"
+                app:cardBackgroundColor="#D7d7d7"
                 app:cardCornerRadius="15dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Send Message"
+                    android:text="Unavailable"
                     android:fontFamily="@font/primary"
-                    android:textColor="@color/white"
                     android:gravity="center"
                     tools:ignore="HardcodedText" />
 
             </androidx.cardview.widget.CardView>
 
-            <EditText
-                android:id="@+id/comment"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:hint="comment                            "
-                android:layout_below="@id/btnAdoption"
-                android:layout_marginStart="20dp"
-                android:fontFamily="@font/primary"
-                tools:ignore="HardcodedText" />
-
-            <ImageView
-                android:id="@+id/commentPost"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:src="@drawable/send"
-                android:layout_marginStart="10dp"
-                android:layout_below="@id/btnAdoption"
-                android:layout_toEndOf="@id/comment"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/commentPost"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
-                android:id="@+id/recycleView"/>
-
-            <ImageView
-                android:id="@+id/empty"
-                android:visibility="visible"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/empty"
-                android:layout_below="@id/commentPost"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="50dp"/>
-            <TextView
-                android:id="@+id/textEmpty"
-                android:visibility="visible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Yet comment not available"
-                android:fontFamily="@font/primary"
-                android:layout_below="@id/empty"
-                android:layout_centerHorizontal="true"
-                tools:ignore="HardcodedText" />
 
         </RelativeLayout>
 
     </ScrollView>
+
+
 
 </RelativeLayout>

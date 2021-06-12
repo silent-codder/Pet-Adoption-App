@@ -15,78 +15,17 @@
         android:padding="10dp"
         android:textColor="@color/regular"
         android:background="@drawable/search_bg"
-        android:hint="Search User here.."
+        android:hint="Search pet breeds"
         android:layout_margin="10dp"
-        android:fontFamily="@font/primary"
+        android:fontFamily="sans-serif-condensed-medium"
         android:drawableLeft="@drawable/search_small_icon"
         tools:ignore="HardcodedText" />
 
-    <TableLayout
-        android:id="@+id/table_layout"
-        android:visibility="gone"
-        android:layout_below="@id/btnSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/dog"
-                    android:layout_width="100dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_height="wrap_content"
-                    android:text="DOG"
-                    android:gravity="center"
-                    android:fontFamily="@font/primary"
-                    android:textColor="@color/secondary"
-                    android:padding="10dp"
-                    android:background="@drawable/search_bg"
-                    tools:ignore="HardcodedText" />
-                <TextView
-                    android:id="@+id/cat"
-                    android:layout_toRightOf="@id/dog"
-                    android:layout_marginStart="20dp"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="CAT"
-                    android:gravity="center"
-                    android:fontFamily="@font/primary"
-                    android:textColor="@color/secondary"
-                    android:padding="10dp"
-                    android:background="@drawable/search_bg"
-                    tools:ignore="HardcodedText" />
-                <TextView
-                    android:id="@+id/birds"
-                    android:layout_toRightOf="@id/cat"
-                    android:layout_marginStart="20dp"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="DOG"
-                    android:gravity="center"
-                    android:fontFamily="@font/primary"
-                    android:textColor="@color/secondary"
-                    android:padding="10dp"
-                    android:background="@drawable/search_bg"
-                    tools:ignore="HardcodedText" />
-
-            </RelativeLayout>
-
-        </TableRow>
-
-    </TableLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/table_layout"
-        android:layout_marginTop="10dp"
+        android:layout_below="@id/btnSearch"
         android:id="@+id/recycleView"/>
 
     <TextView
@@ -109,15 +48,17 @@
         app:lottie_url="https://assets3.lottiefiles.com/packages/lf20_78RTg8.json"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
     <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/lottie"
-        android:hint="Find Pet Adoption User"
+        android:hint="Find Pet Breeds"
+        android:visibility="gone"
+        android:textStyle="bold"
         android:layout_centerHorizontal="true"
-        android:fontFamily="@font/primary"
+        android:fontFamily="sans-serif-condensed-medium"
         tools:ignore="HardcodedText" />
 
 </RelativeLayout>

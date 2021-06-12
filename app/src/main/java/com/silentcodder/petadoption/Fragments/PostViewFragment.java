@@ -64,26 +64,21 @@ import static android.content.ContentValues.TAG;
 
 public class PostViewFragment extends Fragment {
 
-    ImageView mPostImage,mUnlike,mBack,mShare;
+    ImageView mPostImage,mUnlike,mBack;
     CardView mBtnAdoption;
-    LottieAnimationView mLike;
-    TextView mPetName,mAge,mAbout,mUserName;
-    CircleImageView mProfileImg;
-    Button mBtnFollow;
-    EditText mComment;
-    ImageView mPostComment;
-    RecyclerView recyclerView;
+    ImageView mLike;
+    TextView mPetName,mAge,mAbout,mSex;
 
     String fcmUrl = "https://fcm.googleapis.com/",CurrentUserName;
 
+    String MobileNumber;
+    String PostUserId;
+    String PetName,PostId,Age,About,Sex,ImgUrl;
+
+    ImageView mComment;
+
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
-
-    List<PostData> postData;
-    CommentAdapter postAdapter;
-    String UserName,MobileNumber;
-    String ProfileUrl,PostUserId;
-    String ChatId,PetName,PostId,Age,About,Sex,ImgUrl;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -94,31 +89,18 @@ public class PostViewFragment extends Fragment {
         mPostImage = view.findViewById(R.id.postImg);
         mUnlike = view.findViewById(R.id.unlike);
         mBack = view.findViewById(R.id.back);
-        mShare = view.findViewById(R.id.share);
+        mSex = view.findViewById(R.id.sex);
         mBtnAdoption = view.findViewById(R.id.btnAdoption);
         mLike = view.findViewById(R.id.like);
         mPetName = view.findViewById(R.id.petName);
         mAge = view.findViewById(R.id.age);
         mAbout = view.findViewById(R.id.about);
-        mUserName = view.findViewById(R.id.userName);
-        mProfileImg = view.findViewById(R.id.profile);
-        mBtnFollow = view.findViewById(R.id.btnFollow);
         mComment = view.findViewById(R.id.comment);
-        mPostComment = view.findViewById(R.id.commentPost);
-        recyclerView = view.findViewById(R.id.recycleView);
+
+
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-
-        firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid())
-                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
-                    CurrentUserName = task.getResult().getString("UserName");
-                }
-            }
-        });
 
         Bundle bundle = this.getArguments();
         if (bundle!=null){
@@ -133,72 +115,20 @@ public class PostViewFragment extends Fragment {
             Log.d(TAG, "Bundle Img Url : " + PostId);
         }
 
-
-        mPostComment.setOnClickListener(new View.OnClickListener() {
+        mComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Comment = mComment.getText().toString();
-                if (TextUtils.isEmpty(Comment)){
-                    mComment.setError("Please write comment");
-                }else {
-                    HashMap<String, Object> map = new HashMap<>();
-                    map.put("Comment",Comment);
-                    map.put("UserId",firebaseAuth.getCurrentUser().getUid());
-                    map.put("TimeStamp",System.currentTimeMillis());
-
-                    firebaseFirestore.collection("Posts").document(PostId)
-                            .collection("Comments").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                            if (task.isSuccessful()){
-                                firebaseFirestore.collection("Tokens").document(PostUserId).get()
-                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                if (task.isSuccessful()){
-                                                    String token = task.getResult().getString("token");
-                                                    String Title = CurrentUserName + " comment on your post";
-                                                    String Msg = "Comment : " + Comment ;
-                                                    sendNotification(token,Title,Msg);
-                                                }
-                                            }
-                                        });
-
-                                mComment.setText("");
-                            }
-                        }
-                    });
-                }
+                Fragment fragment = new CommentFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("PostId",PostId);
+                bundle.putString("PostUserId",PostUserId);
+                fragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
             }
         });
-
-        if (PostUserId.equals(firebaseAuth.getCurrentUser().getUid())){
-            mBtnFollow.setText("YOU");
-            mBtnAdoption.setVisibility(View.GONE);
-        }
-
-
-
-        firebaseFirestore.collection("Users").document(PostUserId).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()){
-                            UserName = task.getResult().getString("UserName");
-                            ProfileUrl = task.getResult().getString("ProfileImgUrl");
-                            MobileNumber = task.getResult().getString("MobileNumber");
-
-                            mUserName.setText(UserName);
-                            if (!TextUtils.isEmpty(ProfileUrl)){
-                                Picasso.get().load(ProfileUrl).into(mProfileImg);
-                            }
-
-                        }
-                    }
-                });
-
         mPetName.setText(PetName);
-        mAge.setText(Age + " ," + Sex);
+        mAge.setText(Age);
+        mSex.setText(Sex);
         mAbout.setText(About);
 
         firebaseFirestore.collection("Posts").document(PostId).get()
@@ -229,7 +159,6 @@ public class PostViewFragment extends Fragment {
                             mediaPlayer.start();
                             mUnlike.setVisibility(View.GONE);
                             mLike.setVisibility(View.VISIBLE);
-                            mLike.playAnimation();
 
                             firebaseFirestore.collection("Tokens").document(PostUserId).get()
                                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -271,7 +200,6 @@ public class PostViewFragment extends Fragment {
                         if (task.isSuccessful()){
                             mUnlike.setVisibility(View.VISIBLE);
                             mLike.setVisibility(View.GONE);
-                            mLike.playAnimation();
                         }
                     }
                 });
@@ -292,51 +220,21 @@ public class PostViewFragment extends Fragment {
             }
         });
 
-        postData = new ArrayList<>();
-        postAdapter = new CommentAdapter(postData);
-
-//        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2, GridLayoutManager.HORIZONTAL,false));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.getLayoutManager().smoothScrollToPosition(recyclerView,new RecyclerView.State(), postAdapter.getItemCount());
-        recyclerView.setAdapter(postAdapter);
-
-        firebaseFirestore.collection("Posts").document(PostId)
-                .collection("Comments").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                if (!value.isEmpty()){
-                    ImageView imageView = view.findViewById(R.id.empty);
-                    TextView textView = view.findViewById(R.id.textEmpty);
-                    imageView.setVisibility(View.GONE);
-                    textView.setVisibility(View.GONE);
-                }
-
-                for (DocumentChange doc : value.getDocumentChanges()){
-                    if (doc.getType() == DocumentChange.Type.ADDED){
-                        String PostId = doc.getDocument().getId();
-                        PostData mPostData = doc.getDocument().toObject(PostData.class).withId(PostId);
-                        postData.add(mPostData);
-                        postAdapter.notifyDataSetChanged();
-                    }
-                }
-            }
-        });
 
 
 
-        firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid())
-                .collection("ChatUser").document(PostUserId).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        ChatId = task.getResult().getString("ChatId");
-                        Log.d(TAG, "ChatId 1st : " + ChatId);
-                        if (TextUtils.isEmpty(ChatId)){
-                            ChatId = firebaseFirestore.collection("Chats").document().getId();
-                        }
-                    }
-                });
+//        firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid())
+//                .collection("ChatUser").document(PostUserId).get()
+//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        ChatId = task.getResult().getString("ChatId");
+//                        Log.d(TAG, "ChatId 1st : " + ChatId);
+//                        if (TextUtils.isEmpty(ChatId)){
+//                            ChatId = firebaseFirestore.collection("Chats").document().getId();
+//                        }
+//                    }
+//                });
 
         mBtnAdoption.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -350,22 +248,24 @@ public class PostViewFragment extends Fragment {
 //                bundle.putString("ChatId",ChatId);
 //                fragment.setArguments(bundle);
 //                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
-                boolean install = appInstallOrNot("com.whatsapp");
+//                boolean install = appInstallOrNot("com.whatsapp");
+//
+//                String msg = "I'm interested in your pet " + PetName;
+//                String number = MobileNumber ;
+//
+//                if (number.equals("+919623921310")){
+//                    number = "+919096618447";
+//                }
+//
+//                if (install){
+//                    Intent intent = new Intent(Intent.ACTION_VIEW);
+//                    intent.setData(Uri.parse(String.format("https://api.whatsapp.com/send?phone=%s&text=%s", number, msg)));
+//                    startActivity(intent);
+//                }else {
+//                    Toast.makeText(getContext(), "WhatsApp not install", Toast.LENGTH_SHORT).show();
+//                }
 
-                String msg = "I'm interested in your pet " + PetName;
-                String number = MobileNumber ;
-
-                if (number.equals("+919623921310")){
-                    number = "+919096618447";
-                }
-
-                if (install){
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(String.format("https://api.whatsapp.com/send?phone=%s&text=%s", number, msg)));
-                    startActivity(intent);
-                }else {
-                    Toast.makeText(getContext(), "WhatsApp not install", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(getContext(), "Pet Not Available", Toast.LENGTH_SHORT).show();
             }
         });
 
