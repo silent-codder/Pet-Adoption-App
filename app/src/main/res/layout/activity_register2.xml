@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:text="Register"
         android:layout_marginTop="100dp"
-        android:fontFamily="@font/primary"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_centerHorizontal="true"
         android:textColor="@color/regular"
         android:textSize="32sp"
@@ -30,7 +31,8 @@
         <EditText
             android:id="@+id/addressLine"
             android:layout_width="match_parent"
-            android:fontFamily="@font/primary"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed-medium"
             android:layout_margin="10dp"
             android:gravity="start"
             android:textColor="@color/regular"
@@ -57,7 +59,8 @@
             android:layout_margin="10dp"
             android:inputType="textCapWords"
             android:hint="City"
-            android:fontFamily="@font/primary"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed-medium"
             tools:ignore="HardcodedText" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -76,7 +79,8 @@
             android:layout_margin="10dp"
             android:inputType="textCapWords"
             android:hint="State"
-            android:fontFamily="@font/primary"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed-medium"
             tools:ignore="HardcodedText" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -96,7 +100,8 @@
             android:inputType="numberDecimal"
             android:maxLength="6"
             android:hint="Pin code"
-            android:fontFamily="@font/primary"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed-medium"
             tools:ignore="HardcodedText" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -106,7 +111,7 @@
         android:layout_below="@id/pinLayout"
         android:layout_marginTop="20dp"
         android:layout_width="300dp"
-        android:fontFamily="@font/primary"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_height="wrap_content"
         android:text="Done"
         android:visibility="visible"

@@ -10,7 +10,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/cat_bg">
 
         <ImageView
             android:layout_width="match_parent"
@@ -23,7 +24,7 @@
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Not Available"
+            android:text="Available"
             android:textStyle="bold"
             android:background="@drawable/status_bg"
             android:paddingEnd="10dp"
@@ -42,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="Corgi Dog"
             android:textColor="@color/regular"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:layout_below="@id/status"
             android:layout_marginStart="10dp"

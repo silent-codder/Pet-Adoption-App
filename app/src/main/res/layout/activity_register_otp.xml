@@ -14,7 +14,8 @@
         android:text="ENTER OTP"
         android:textSize="20sp"
         android:textColor="@color/regular"
-        android:fontFamily="@font/primary"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_centerHorizontal="true"
         tools:ignore="HardcodedText" />
 
@@ -26,7 +27,8 @@
         android:text="Otp send on your mobile number"
         android:gravity="center"
         android:layout_below="@id/text"
-        android:fontFamily="@font/primary"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_centerHorizontal="true"
         android:textColor="@color/regular"
         tools:ignore="HardcodedText" />
@@ -39,7 +41,8 @@
         android:layout_marginTop="60dp"
         android:textColor="@color/regular"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/primary"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:letterSpacing="1"
@@ -56,10 +59,10 @@
         android:layout_below="@id/getOtp"
         android:layout_marginTop="20dp"
         android:layout_width="300dp"
-        android:fontFamily="@font/primary"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_height="wrap_content"
         android:text="Verify Otp"
-        android:textStyle="bold"
         android:layout_centerHorizontal="true"
         tools:ignore="HardcodedText" />
     <ProgressBar

@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:menu="@menu/nav_menu"
-        android:theme="@style/Widget.BottomNavigationView"
+        style="@style/Widget.BottomNavigationView"
         app:itemIconTint="@color/selector"
         android:id="@+id/nav_bar"/>
 

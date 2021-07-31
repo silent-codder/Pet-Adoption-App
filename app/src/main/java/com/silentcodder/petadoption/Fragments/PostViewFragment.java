@@ -136,7 +136,7 @@ public class PostViewFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()){
-                            String ImgUrl = task.getResult().getString("PetImgUrl");
+                            ImgUrl = task.getResult().getString("PetImgUrl");
                             if (!TextUtils.isEmpty(ImgUrl)){
                                 Picasso.get().load(ImgUrl).into(mPostImage);
                             }
@@ -223,18 +223,14 @@ public class PostViewFragment extends Fragment {
 
 
 
-//        firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid())
-//                .collection("ChatUser").document(PostUserId).get()
-//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        ChatId = task.getResult().getString("ChatId");
-//                        Log.d(TAG, "ChatId 1st : " + ChatId);
-//                        if (TextUtils.isEmpty(ChatId)){
-//                            ChatId = firebaseFirestore.collection("Chats").document().getId();
-//                        }
-//                    }
-//                });
+        firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        MobileNumber = task.getResult().getString("MobileNumber");
+                    }
+                });
 
         mBtnAdoption.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,24 +244,25 @@ public class PostViewFragment extends Fragment {
 //                bundle.putString("ChatId",ChatId);
 //                fragment.setArguments(bundle);
 //                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
-//                boolean install = appInstallOrNot("com.whatsapp");
 //
-//                String msg = "I'm interested in your pet " + PetName;
-//                String number = MobileNumber ;
-//
-//                if (number.equals("+919623921310")){
-//                    number = "+919096618447";
-//                }
-//
-//                if (install){
-//                    Intent intent = new Intent(Intent.ACTION_VIEW);
-//                    intent.setData(Uri.parse(String.format("https://api.whatsapp.com/send?phone=%s&text=%s", number, msg)));
-//                    startActivity(intent);
-//                }else {
-//                    Toast.makeText(getContext(), "WhatsApp not install", Toast.LENGTH_SHORT).show();
-//                }
+                boolean install = appInstallOrNot("com.whatsapp");
 
-                Toast.makeText(getContext(), "Pet Not Available", Toast.LENGTH_SHORT).show();
+                String msg = "I'm interested in your pet " + PetName;
+                String number = MobileNumber ;
+
+                if (number.equals("+919623921310")){
+                    number = "+917387607015";
+                }
+
+                if (install){
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(String.format("https://api.whatsapp.com/send?phone=%s&text=%s", number, msg)));
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(getContext(), "WhatsApp not install", Toast.LENGTH_SHORT).show();
+                }
+
+//                Toast.makeText(getContext(), "Pet Not Available", Toast.LENGTH_SHORT).show();
             }
         });
 

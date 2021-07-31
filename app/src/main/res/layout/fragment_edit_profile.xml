@@ -13,7 +13,8 @@
         android:text="Edit Profile"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:fontFamily="@font/primary"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed-medium"
         android:textColor="@color/secondary"
         android:textSize="18sp"
         tools:ignore="HardcodedText" />
@@ -43,7 +44,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="User Name"
-        android:fontFamily="@font/primary"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_below="@id/editImg"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
@@ -54,7 +56,8 @@
         android:layout_height="wrap_content"
         android:hint="User Name"
         android:layout_marginTop="10dp"
-        android:fontFamily="@font/primary"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_below="@id/text2"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
@@ -68,7 +71,8 @@
         android:layout_margin="20dp"
         android:layout_below="@id/userName"
         android:text="Update Profile"
-        android:fontFamily="@font/primary"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed-medium"
         tools:ignore="HardcodedText" />
 
     <ProgressBar

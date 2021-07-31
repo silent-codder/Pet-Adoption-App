@@ -7,175 +7,198 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ProfileFragment">
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profile"
-        android:fontFamily="@font/primary"
-        android:textColor="@color/secondary"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp"
-        tools:ignore="HardcodedText" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:civ_border_width="2dp"
-        android:layout_marginStart="20dp"
-        android:layout_centerHorizontal="true"
-        app:civ_border_color="@color/regular"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/text"
-        android:src="@drawable/profile_icon"/>
-
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/profile"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/primary"
-        android:hint="loading.."
-        android:textColor="@color/regular"
-        android:textSize="16sp"
-        tools:ignore="HardcodedText" />
-    <TextView
-        android:id="@+id/mobileNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="loading.."
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="@font/primary"
-        android:textColor="@color/regular"
-        android:layout_below="@+id/name"
-        tools:ignore="HardcodedText" />
-
-    <RelativeLayout
-        android:id="@+id/details"
-        android:visibility="visible"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/mobileNumber"
-        android:gravity="center"
-        android:layout_margin="20dp">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/followText"
-            android:layout_width="100dp"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:text="Follow"
-            android:textColor="@color/regular"
-            android:fontFamily="@font/primary"
-            tools:ignore="HardcodedText" />
-        <TextView
-            android:id="@+id/follow"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/regular"
-            android:gravity="center"
-            android:fontFamily="@font/primary"
-            android:layout_below="@id/followText"
-            tools:ignore="HardcodedText" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <View
-            android:layout_marginStart="20dp"
-            android:id="@+id/view2"
-            android:layout_width="2dp"
-            android:layout_height="50dp"
-            android:background="@color/regular"
-            android:layout_toRightOf="@id/follow"/>
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textStyle="bold"
+                android:textColor="@color/secondary"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
 
-        <TextView
-            android:id="@+id/followerText"
-            android:layout_width="100dp"
-            android:layout_marginStart="20dp"
-            android:gravity="center"
-            android:layout_toRightOf="@id/view2"
-            android:layout_height="wrap_content"
-            android:text="Followers"
-            android:textColor="@color/regular"
-            android:fontFamily="@font/primary"
-            tools:ignore="HardcodedText" />
-        <TextView
-            android:id="@+id/followers"
-            android:layout_width="100dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:layout_toRightOf="@id/view2"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textColor="@color/regular"
-            android:gravity="center"
-            android:fontFamily="@font/primary"
-            android:layout_below="@id/followerText"
-            tools:ignore="HardcodedText" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:civ_border_width="2dp"
+                android:layout_marginStart="20dp"
+                android:layout_centerHorizontal="true"
+                app:civ_border_color="@color/regular"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/text"
+                android:src="@drawable/profile_icon"/>
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profile"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textStyle="bold"
+                android:hint="loading.."
+                android:textColor="@color/regular"
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
+            <TextView
+                android:id="@+id/mobileNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="loading.."
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textStyle="bold"
+                android:textColor="@color/regular"
+                android:layout_below="@+id/name"
+                tools:ignore="HardcodedText" />
+
+            <RelativeLayout
+                android:id="@+id/details"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mobileNumber"
+                android:gravity="center"
+                android:layout_margin="20dp">
+
+                <TextView
+                    android:id="@+id/followText"
+                    android:layout_width="100dp"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="Follow"
+                    android:textColor="@color/regular"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:id="@+id/follow"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/regular"
+                    android:gravity="center"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textStyle="bold"
+                    android:layout_below="@id/followText"
+                    tools:ignore="HardcodedText" />
+
+                <View
+                    android:layout_marginStart="20dp"
+                    android:id="@+id/view2"
+                    android:layout_width="2dp"
+                    android:layout_height="50dp"
+                    android:background="@color/regular"
+                    android:layout_toRightOf="@id/follow"/>
+
+                <TextView
+                    android:id="@+id/followerText"
+                    android:layout_width="100dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center"
+                    android:layout_toRightOf="@id/view2"
+                    android:layout_height="wrap_content"
+                    android:text="Followers"
+                    android:textColor="@color/regular"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:id="@+id/followers"
+                    android:layout_width="100dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@id/view2"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/regular"
+                    android:gravity="center"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textStyle="bold"
+                    android:layout_below="@id/followerText"
+                    tools:ignore="HardcodedText" />
 
 
-    </RelativeLayout>
+            </RelativeLayout>
 
-    <Button
-        android:id="@+id/btnEditProfile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Edit Profile"
-        android:fontFamily="@font/primary"
-        android:layout_below="@id/details"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        tools:ignore="HardcodedText" />
+            <Button
+                android:id="@+id/btnEditProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit Profile"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textStyle="bold"
+                android:layout_below="@id/details"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                tools:ignore="HardcodedText" />
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/regular"
-        android:layout_below="@id/btnEditProfile"
-        android:layout_margin="10dp"/>
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/regular"
+                android:layout_below="@id/btnEditProfile"
+                android:layout_margin="10dp"/>
 
-    <TextView
-        android:id="@+id/text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Your Posts"
-        android:layout_below="@id/view"
-        android:fontFamily="@font/primary"
-        android:layout_marginStart="20dp"
-        android:textColor="@color/secondary"
-        tools:ignore="HardcodedText" />
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="Your Posts"
+                android:layout_below="@id/view"
+                android:fontFamily="@font/primary"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/secondary"
+                tools:ignore="HardcodedText" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text2"
-        android:layout_margin="15dp"
-        android:id="@+id/recycleView"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text2"
+                android:layout_margin="15dp"
+                android:id="@+id/recycleView"/>
 
-    <ImageView
-        android:id="@+id/empty"
-        android:visibility="visible"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/empty"
-        android:layout_below="@id/text2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"/>
-    <TextView
-        android:id="@+id/textEmpty"
-        android:visibility="visible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Yet nothing post"
-        android:fontFamily="@font/primary"
-        android:layout_below="@id/empty"
-        android:layout_centerHorizontal="true"
-        tools:ignore="HardcodedText" />
+            <ImageView
+                android:id="@+id/empty"
+                android:visibility="gone"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/empty"
+                android:layout_below="@id/text2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"/>
+            <TextView
+                android:id="@+id/textEmpty"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Yet nothing post"
+                android:fontFamily="@font/primary"
+                android:layout_below="@id/empty"
+                android:layout_centerHorizontal="true"
+                tools:ignore="HardcodedText" />
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
 </RelativeLayout>

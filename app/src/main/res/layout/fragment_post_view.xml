@@ -48,14 +48,14 @@
                 android:background="@color/white"
                 android:layout_below="@id/postImg"
                 android:layout_marginTop="-40dp"
-                app:contentPadding="20dp"
                 android:layout_gravity="bottom"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
 
                     <TextView
                         android:id="@+id/petName"
@@ -63,8 +63,9 @@
                         android:layout_height="wrap_content"
                         android:text="Rockey"
                         android:textColor="@color/secondary"
-                        android:textSize="22sp"
-                        android:fontFamily="@font/primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-condensed-medium"
                         tools:ignore="HardcodedText" />
                     <TextView
                         android:id="@+id/city"
@@ -82,7 +83,7 @@
                         android:id="@+id/status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Not Available"
+                        android:text="Available"
                         android:textStyle="bold"
                         android:background="@drawable/status_bg"
                         android:paddingEnd="10dp"
@@ -151,10 +152,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Gary"
+                            android:textSize="16sp"
                             android:layout_centerHorizontal="true"
                             android:textColor="@color/secondary"
                             android:textStyle="bold"
-                            android:textSize="18sp"
                             android:layout_marginTop="7dp"
                             android:fontFamily="sans-serif-condensed-medium"
                             android:layout_marginStart="20dp"
@@ -164,7 +165,6 @@
                             android:layout_height="wrap_content"
                             android:text="Color"
                             android:layout_centerHorizontal="true"
-                            android:textStyle="bold"
                             android:layout_below="@id/color"
                             android:fontFamily="sans-serif-condensed-medium"
                             android:layout_marginStart="20dp"
@@ -173,7 +173,7 @@
                     </RelativeLayout>
                     <RelativeLayout
                         android:id="@+id/dog"
-                        android:layout_width="match_parent"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="10dp"
@@ -186,9 +186,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="4 Months"
+                            android:gravity="center"
                             android:layout_centerHorizontal="true"
                             android:textStyle="bold"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textColor="@color/secondary"
                             android:layout_marginTop="7dp"
                             android:fontFamily="sans-serif-condensed-medium"
@@ -200,7 +201,6 @@
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:text="Age"
-                            android:textStyle="bold"
                             android:fontFamily="sans-serif-condensed-medium"
                             android:layout_below="@id/age"
                             android:layout_marginStart="20dp"
@@ -223,7 +223,7 @@
                             android:layout_centerHorizontal="true"
                             android:textColor="@color/secondary"
                             android:textStyle="bold"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:layout_marginTop="7dp"
                             android:fontFamily="sans-serif-condensed-medium"
                             android:layout_marginStart="20dp"
@@ -234,7 +234,6 @@
                             android:layout_height="wrap_content"
                             android:text="Sex"
                             android:layout_centerHorizontal="true"
-                            android:textStyle="bold"
                             android:layout_below="@id/sex"
                             android:fontFamily="sans-serif-condensed-medium"
                             android:layout_marginStart="20dp"
@@ -279,14 +278,17 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
                 app:contentPadding="10dp"
-                app:cardBackgroundColor="#D7d7d7"
+                app:cardBackgroundColor="@color/primary"
                 app:cardCornerRadius="15dp">
+<!--                app:cardBackgroundColor="#D7d7d7"-->
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Unavailable"
-                    android:fontFamily="@font/primary"
+                    android:text="Send Message"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-condensed-medium"
                     android:gravity="center"
                     tools:ignore="HardcodedText" />
 

@@ -8,9 +8,9 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/profile_icon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/profile_img"
         app:civ_border_width="1dp"
         app:civ_border_color="@color/regular"/>
     <TextView
@@ -18,10 +18,11 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:text="Ajinkya Shinde"
-        android:textColor="@color/secondary"
+        android:textColor="@color/regular"
         android:gravity="center"
         android:layout_toEndOf="@id/profile"
-        android:fontFamily="@font/primary"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed-medium"
         android:textSize="12sp"
         android:layout_marginStart="5dp"
         tools:ignore="HardcodedText" />
@@ -31,7 +32,7 @@
         android:layout_height="wrap_content"
         android:text="Love you rockey..."
         android:textColor="@color/primary"
-        android:fontFamily="@font/primary"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_below="@id/userName"
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@id/profile"

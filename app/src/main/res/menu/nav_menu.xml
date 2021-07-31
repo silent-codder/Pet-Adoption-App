@@ -10,10 +10,10 @@
         android:icon="@drawable/comment"
         android:title="Chat"
         tools:ignore="HardcodedText" />
-<!--    <item android:id="@+id/add"-->
-<!--        android:icon="@drawable/add_icon"-->
-<!--        android:title="Post"-->
-<!--        tools:ignore="HardcodedText" />-->
+    <item android:id="@+id/add"
+        android:icon="@drawable/add_icon"
+        android:title="Post"
+        tools:ignore="HardcodedText" />
     <item android:id="@+id/notification"
         android:icon="@drawable/notification_icon"
         android:title="Notification"

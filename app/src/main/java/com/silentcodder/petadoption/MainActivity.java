@@ -118,9 +118,9 @@ import java.util.TimerTask;
                     case R.id.chat:
                         fragment = new ChatListFragment();
                         break;
-//                    case R.id.add:
-//                        fragment = new AddFragment();
-//                        break;
+                    case R.id.add:
+                        fragment = new AddFragment();
+                        break;
                     case R.id.notification:
                         fragment = new NotificationFragment();
                         break;

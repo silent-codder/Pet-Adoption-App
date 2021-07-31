@@ -22,11 +22,19 @@
         tools:ignore="HardcodedText" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnSearch"
-        android:id="@+id/recycleView"/>
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btnSearch">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/recycleView"/>
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/notFoundTxt"
